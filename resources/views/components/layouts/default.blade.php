@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <x-header />
     {{ $slot }}
 </body>
 
