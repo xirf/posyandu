@@ -13,9 +13,17 @@ class News extends Model {
         'thumbnail',
         'content',
         'user',
+        'published_at',
+        'status',
         'meta_title',
         'meta_description',
         'meta_keywords',
+    ];
+
+    // status is enum
+    public const STATUS = [
+        'draft' => 'Draft',
+        'published' => 'Published',
     ];
 
     public function tags(): BelongsToMany {

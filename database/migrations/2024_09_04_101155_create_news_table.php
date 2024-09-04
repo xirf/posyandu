@@ -12,6 +12,8 @@ class CreateNewsTable extends Migration {
             $table->string('slug')->unique();
             $table->string('thumbnail')->nullable();
             $table->text('content');
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->date('published_at')->default(now());
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

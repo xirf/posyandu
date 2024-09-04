@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')->group(function () {
     Route::get('/', function () { return view('dashboard'); });
-    Route::get('/news', function () { return view('dashboard'); })->name('.news');
+    Route::get('/news', [NewsController::class, 'index'])->name('.news');
     Route::get('/activity', function () { return view('dashboard'); })->name('.activity');
     Route::get('/posyandu', function () { return view('dashboard'); })->name('.posyandu');
     Route::get('/user', function () { return view('dashboard'); })->name('.user');
