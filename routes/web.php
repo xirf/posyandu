@@ -29,10 +29,15 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')->group(function () {
     Route::get('/', function () { return view('dashboard'); });
-    Route::get('/news', [NewsController::class, 'index'])->name('.news');
     Route::get('/activity', function () { return view('dashboard'); })->name('.activity');
     Route::get('/posyandu', function () { return view('dashboard'); })->name('.posyandu');
     Route::get('/user', function () { return view('dashboard'); })->name('.user');
+
+    Route::prefix('news')->group(function(){
+        Route::get('/', [NewsController::class, 'index'])->name('.news');
+        Route::get('/new', [NewsController::class, 'new'])->name('.news.new');
+
+    });
 });
 
 require __DIR__ . '/auth.php';
