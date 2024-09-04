@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import UnoCss from "unocss/vite";
-import unocss from 'unocss/postcss';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: [ 'resources/css/app.css', 'resources/js/app.js' ],
+            input: [
+                'resources/sass/app.scss',
+                'resources/js/app.js',
+            ],
             refresh: true,
         }),
-        unocss({
-            injectReset: true
-        })
+        react(),
     ],
 });
