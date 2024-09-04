@@ -2,24 +2,23 @@
 
 // database/migrations/create_news_tags_table.php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use App\Models\News;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CreateNewsTagsTable extends Migration
-{
-    public function up()
-    {
-        Schema::create('news_tags', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('news_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+class CreateNewsTagsTable extends Model {
+    protected $fillable = [
+        'news_id',
+        'tag_id',
+    ];
+
+    
+    public function news(): BelongsTo {
+        return $this->belongsTo(News::class);
     }
 
-    public function down()
-    {
-        Schema::dropIfExists('news_tags');
+    public function tag(): BelongsTo {
+        return $this->belongsTo(Tag::class);
     }
 }
