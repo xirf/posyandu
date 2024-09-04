@@ -15,7 +15,7 @@
     },
     "private": true,
     "scripts": {
-        "dev": "unocss  --watch & vite",
+        "dev": "vite",
         "build": "vite build"
     },
     "type": "module"
