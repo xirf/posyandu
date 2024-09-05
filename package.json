@@ -18,5 +18,8 @@
         "dev": "vite",
         "build": "vite build"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "preline": "^2.4.1"
+    }
 }
