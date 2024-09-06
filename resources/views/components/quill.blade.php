@@ -74,10 +74,10 @@
         modules: {
             toolbar: {
                 container: [
-                    [{ 'header': [1, 2, 3, false] }, 'bold', 'italic', 'underline', 'strike'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }, 'bold', 'italic', 'underline', 'strike'],
                     ['link', 'blockquote', 'code-block', 'image'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
-                    [{ 'indent': '-1' }, { 'indent': '+1' }, { 'direction': 'rtl' }, { 'align': [] }],
+                    [{ list: 'ordered' }, { list: 'bullet' }, { 'align': [] }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
                     ['clean']
                 ],
                 handlers: {
@@ -168,7 +168,8 @@
                         class="w-full h-full flex flex-col text-center items-center justify-center cursor-pointer">
                         <x-heroicon-o-plus class="w-8 h-8" />
                         <span>{{ __('Upload Image') }}</span>
-                        <input type="file" accept="image/jpg,image/jpeg,image/png" class="hidden" id="upload_new_image" />
+                        <input type="file" accept="image/jpg,image/jpeg,image/png" class="hidden"
+                            id="upload_new_image" />
                     </label>
                 </div>
 
