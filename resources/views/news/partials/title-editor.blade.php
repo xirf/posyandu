@@ -1,5 +1,5 @@
 <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '', overflow: false, siteNewsPath: '{{ route('dashboard') }}' }">
-    <x-text-input class="w-full"
+    <x-text-input class="w-full" placeholder="{{__('Title')}}"
         @input=" permalink = siteNewsPath + '/' + $event.target.value.trim().replace(/ /g, '-').replace(/[^\w-]/g, '').substring(0, 100);
                  overflow = $event.target.value.length > 100">
     </x-text-input>

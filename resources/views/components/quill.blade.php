@@ -10,6 +10,7 @@
 <div class="mb-5" x-data="{
     content: '',
     availableImages: [],
+    selectedImage: null,
     isImageLoading: true,
     endpoint: '{{ $endpoint ?? '' }}',
     csrf: '{{ csrf_token() }}',
@@ -161,13 +162,28 @@
                 {{ __('Add Image') }}
             </h2>
 
-            <div class="mt-6 grid grid-cols-5 gap-2">
-                <div class="relative w-full h-full aspect-square border border-dashed border-gray-400 rounded-md">
-                    <label for="upload_new_image" class="w-full h-full flex flex-col text-center items-center justify-center">
+            <div class="mt-6 grid grid-cols-5 gap-2 max-h-96 overflow-y-auto">
+                <div class="relative w-full aspect-square border border-dashed border-gray-400 rounded-md">
+                    <label for="upload_new_image"
+                        class="w-full h-full flex flex-col text-center items-center justify-center cursor-pointer">
                         <x-heroicon-o-plus class="w-8 h-8" />
-                        <span>{{__("Upload Image")}}</span>
+                        <span>{{ __('Upload Image') }}</span>
+                        <input type="file" accept="image/jpg,image/jpeg,image/png" class="hidden" id="upload_new_image" />
                     </label>
                 </div>
+
+                {{-- Images from server --}}
+                <template x-for="(image, index) in availableImages" :key="index">
+                    <div class="w-full h-full">
+                        <label x-bind:for="image"
+                            class="w-full h-full rounded-md border border-gray-400 aspect-square object-cover block overflow-hidden"
+                            :class="selectedImage === image ? 'border-2 border-cyan-500' : 'border-none'">
+                            <input type="radio" name="selected_image" x-bind:id="image"
+                                x-on:change="selectedImage = image" class="hidden">
+                            <img x-bind:src="image.replace('public/', '/storage/')" class="w-full h-full">
+                        </label>
+                    </div>
+                </template>
             </div>
         </div>
     </x-modal>

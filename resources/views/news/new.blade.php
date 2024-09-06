@@ -14,8 +14,6 @@
 
             <div class="w-full max-w-md space-y-4">
                 @include('news.partials.sidebar')
-                @include('news.partials.seo')
-
             </div>
         </div>
     </div>

@@ -1,19 +1,5 @@
-<div class="p-4 bg-white shadow sm:rounded-lg min-h-screen">
-    <x-quill 
-    label="Body" name="body" value="" placeholder="Content here..." 
-    :endpoint="'/uploads'"
-    />
+<div class="p-4 bg-white shadow sm:rounded-lg space-y-4">
+    <h2 class="block mb-1  text-lg font-semibold text-gray-700">{{ __('Content') }}</h2>
+    <x-quill name="body" value="" placeholder="Content here..." :endpoint="'/uploads'" />
 
 </div>
-
-@pushOnce('script')
-    <script>
-        fetch('{{route("get.images")}}', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                }
-            }).then(response => response.json()).then(console.log)
-    </script>
-@endPushOnce
