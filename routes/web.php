@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UploadFileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +41,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     });
 });
 
-Route::post('/uploads', [UploadFileController::class, "upload"])->middleware('auth')->name('upload');
+
+Route::post('/uploads', [FileController::class, "upload"])->middleware('auth')->name('upload');
+Route::get('/get/uploads', [FileController::class, "getAllImages"])->middleware('auth')->name('get.images');
+
 
 require __DIR__ . '/auth.php';

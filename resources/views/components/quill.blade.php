@@ -9,6 +9,8 @@
 
 <div class="mb-5" x-data="{
     content: '',
+    availableImages: [],
+    isImageLoading: true,
     endpoint: '{{ $endpoint ?? '' }}',
     csrf: '{{ csrf_token() }}',
     selectLocalImage(quillInstance) {
@@ -77,15 +79,15 @@
                     [{ 'indent': '-1' }, { 'indent': '+1' }, { 'direction': 'rtl' }, { 'align': [] }],
                     ['clean']
                 ],
-                // handlers: {
-                //  image: function () {
-                //      var range = quill.getSelection();
-                //      var value = prompt('Please enter your image URL');
-                //      if(value){
-                //          quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
-                //      }
-                //  }
-                // }
+                handlers: {
+                    image: function() {
+                        var range = quill.getSelection();
+                        var value = prompt('Please enter your image URL');
+                        if (value) {
+                            quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+                        }
+                    }
+                }
             },
             imageResize: {
                 displaySize: true
@@ -104,14 +106,15 @@
         var Delta = Quill.import('delta');
         return new Delta().insert(plaintext);
     });
+
     // quill editor add image handler
     quill.getModule('toolbar').addHandler('image', () => {
-        selectLocalImage(quill);
+        $dispatch('open-modal', 'add-image')
     });
     content = (quill.root.innerHTML === '<p><br></p>') ?
         '' :
         quill.root.innerHTML;
-})" x-cloak>
+});" x-cloak>
     @if ($label ?? null)
         <label for="{{ $name }}" class="form-label block mb-1 font-semibold text-gray-700">
             {{ $label }}
@@ -142,4 +145,30 @@
             <div class="text-red-600 mt-2 text-sm block leading-tight">{{ $message }}</div>
         @enderror
     </div>
+
+    <x-modal name="add-image">
+        <div class="p-6" x-on:close-modal.window="isImageLoading=false"
+            x-on:open-modal.window="
+            fetch('{{ route('get.images') }}', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(response => response.json()).then(x=> availableImages=x).catch(e => alert(e.message))
+            ">
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Add Image') }}
+            </h2>
+
+            <div class="mt-6 grid grid-cols-5 gap-2">
+                <div class="relative w-full h-full aspect-square border border-dashed border-gray-400 rounded-md">
+                    <label for="upload_new_image" class="w-full h-full flex flex-col text-center items-center justify-center">
+                        <x-heroicon-o-plus class="w-8 h-8" />
+                        <span>{{__("Upload Image")}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </x-modal>
 </div>

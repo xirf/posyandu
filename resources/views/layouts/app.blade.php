@@ -37,6 +37,7 @@
             {{ $slot }}
         </main>
     </div>
+    @stack('modals')
     @stack('script')
 </body>
 

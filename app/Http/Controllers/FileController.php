@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class UploadFileController extends Controller {
+class FileController extends Controller {
     public function upload(Request $request) {
         if ($request->file('image')) {
 
@@ -27,5 +27,16 @@ class UploadFileController extends Controller {
         }
 
         return;
+    }
+
+
+    public function getAllImages(Request $request) {
+        $allFiles = Storage::allFiles('public');
+
+        $imageFiles = array_filter($allFiles, function ($file) {
+            return preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
+        });
+
+        return response()->json(array_values($imageFiles));
     }
 }
