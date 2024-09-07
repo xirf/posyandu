@@ -104,6 +104,10 @@
     content = (quill.root.innerHTML === '<p><br></p>') ?
         '' :
         quill.root.innerHTML;
+});
+
+document.querySelector('#{{ $formId }}').addEventListener('formdata', (event) => {
+    event.formData.append('about', JSON.stringify(quill.getContents().ops));
 });" x-cloak>
 
     @if ($label ?? null)
@@ -169,10 +173,10 @@
                 </template>
             </div>
             <div class="flex justify-end space-x-2">
-                <x-secondary-button x-on:click="selectLocalImage()">
+                <x-secondary-button x-on:click="selectLocalImage()" type="button">
                     {{ __('Upload Image') }}
                 </x-secondary-button>
-                <x-primary-button x-on:click="insertSelectedImage">
+                <x-primary-button x-on:click="insertSelectedImage" type="button">
                     {{ __('Insert Selected Image') }}
                 </x-primary-button>
             </div>
