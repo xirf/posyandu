@@ -22,8 +22,8 @@ class News extends Model {
 
     // status is enum
     public const STATUS = [
-        'draft' => 'Draft',
-        'published' => 'Published',
+        'draft',
+        'published'
     ];
 
     public function tags(): BelongsToMany {

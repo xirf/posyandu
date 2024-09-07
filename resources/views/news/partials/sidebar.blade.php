@@ -1,6 +1,5 @@
 <div class="shadow bg-white sm:rounded-lg space-y-4 p-4 ">
-    <div class="w-full flex justify-between items-center">
-        <x-secondary-button>{{ __('Save as Draft') }}</x-secondary-button>
+    <div class="w-full flex justify-end">
         <x-primary-button>{{ __('Publish') }}</x-primary-button>
     </div>
     <div class="grid grid-cols-2 gap-4">
@@ -8,7 +7,7 @@
             <x-heroicon-o-key class="w-5 h-5" />
             <p>{{ __('Status') }}</p>
         </div>
-        <x-select name="status" :options="[
+        <x-select :name="'status'" :id="'status'" :options="[
             [
                 'value' => 'draft',
                 'label' => 'Draft',

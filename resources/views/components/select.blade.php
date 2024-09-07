@@ -1,5 +1,7 @@
 <!-- Select -->
 <select
+    name="{{ $name }}"
+    id="{{ $id }}"
     data-hs-select='{
     "placeholder": "{{ $placeholder }}",
     "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
