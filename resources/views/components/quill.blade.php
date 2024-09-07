@@ -70,17 +70,28 @@
     quill = new Quill($refs.quillEditor, {
         scrollingContainer: '.ql-scrolling-container',
         modules: {
+            history: {
+                delay: 2000,
+                maxStack: 500,
+                userOnly: true
+            },
             toolbar: {
                 container: [
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }, 'bold', 'italic', 'underline', 'strike'],
-                    ['link', 'blockquote', 'code-block', 'image'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }, 'bold', 'italic', 'underline', 'strike', { 'color': [] }, { 'background': [] }],
+                    ['link', 'blockquote', 'image'],
                     [{ list: 'ordered' }, { list: 'bullet' }, { 'align': [] }],
                     [{ 'indent': '-1' }, { 'indent': '+1' }],
-                    ['clean']
+                    ['clean', { 'undo': 'undo' }, { 'redo': 'redo' }]
                 ],
                 handlers: {
                     image: () => {
                         $dispatch('open-modal', 'add-image');
+                    },
+                    undo: () => {
+                        this.quill.history.undo();
+                    },
+                    redo: () => {
+                        this.quill.history.redo();
                     }
                 }
             },
