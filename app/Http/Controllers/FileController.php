@@ -34,7 +34,7 @@ class FileController extends Controller {
         $allFiles = Storage::allFiles('public');
 
         $imageFiles = array_filter($allFiles, function ($file) {
-            return preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
+            return preg_match('/\.(jpg|jpeg|png|gif|svg|webp)$/i', $file);
         });
 
         return response()->json(array_values($imageFiles));

@@ -36,8 +36,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
 
     Route::prefix('news')->group(function(){
         Route::get('/', [NewsController::class, 'index'])->name('.news');
-        Route::get('/new', [NewsController::class, 'new'])->name('.news.new');
-
+        Route::get('/new', [NewsController::class, 'create'])->name('.news.new');
+        Route::post('/new', [NewsController::class, 'store'])->name('.news.store');
     });
 });
 
