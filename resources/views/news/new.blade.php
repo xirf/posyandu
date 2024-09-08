@@ -1,4 +1,17 @@
 <x-app-layout>
+
+    {{-- error handler --}}
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">{{ __('Whoops! Something went wrong.') }}</strong>
+            <ul class="mt-3 list-disc list-inside text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center justify-between flex-wrap">
             {{ __('Add News') }}
@@ -16,7 +29,7 @@
                                  overflow = $event.target.value.length > 60">
                     </x-text-input>
                     <p x-show="overflow" class="text-orange-500 text-xs">
-                        {{__('It\'s not recommended to use more than 60 characters for the title')}}
+                        {{ __('It\'s not recommended to use more than 60 characters for the title') }}
                     </p>
                     <div class="text-sm text-gray-500">
                         <p>
@@ -32,7 +45,7 @@
             </div>
 
             <div class="w-full max-w-md space-y-4">
-                @include('news.partials.sidebar')
+                @include('news.partials.sidebar', ['tags' => $tags])
             </div>
         </div>
     </form>

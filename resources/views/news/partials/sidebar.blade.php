@@ -13,7 +13,7 @@
                 'label' => 'Draft',
             ],
             [
-                'value' => 'publish',
+                'value' => 'published',
                 'label' => 'Published',
             ],
         ]" :placeholder="__('Choose')" />

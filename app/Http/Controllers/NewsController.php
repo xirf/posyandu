@@ -18,7 +18,11 @@ class NewsController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('news.new');
+        $allTags = Tag::all();
+
+        return view('news.new', [
+            'tags' => $allTags
+        ]);
     }
 
     /**
@@ -31,26 +35,28 @@ class NewsController extends Controller {
             'thumbnail' => 'required|string',
             'about' => 'required|string',
             'published_at' => 'required|date',
-            'status' => 'required|in:publish,draft',
+            'status' => 'required|in:published,draft',
             'tags' => 'array'
         ]);
-
+        
         $tags = $request->tags;
         $tagsIDs = [];
-
+        
         foreach ($tags as $tagName) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
             $tagsIDs[] = $tag->id;
         }
-
+        
         $post = News::create([
             'title' => $validatedData['title'],
+            'status' => $validatedData['status'] === 'published' ? News::STATUS_PUBLISHED : News::STATUS_DRAFT,
             'slug' => str_replace(' ', '-', strtolower($validatedData['title'])),
             'thumbnail' => $validatedData['thumbnail'],
             'content' => $validatedData['about'],
             'published_at' => $validatedData['published_at'],
         ]);
-
+        
+        
         $post->tags()->attach($tagsIDs);
         return response()->json($post);
     }

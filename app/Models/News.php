@@ -20,11 +20,8 @@ class News extends Model {
         'meta_keywords',
     ];
 
-    // status is enum
-    public const STATUS = [
-        'draft',
-        'published'
-    ];
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_PUBLISHED = 'published';
 
     public function tags(): BelongsToMany {
         return $this->belongsToMany(Tag::class, 'news_tags');
