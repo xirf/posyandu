@@ -1,16 +1,19 @@
 <x-app-layout>
 
     {{-- error handler --}}
-    @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong class="font-bold">{{ __('Whoops! Something went wrong.') }}</strong>
-            <ul class="mt-3 list-disc list-inside text-sm">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @pushIf($errors, 'script')
+        <script>
+            @foreach ($errors->all() as $error)
+                notyf.error('{{ $error }}');
+            @endforeach
+        </script>
+    @endPushIf
+
+    @pushIf(session('status'), 'script')
+        <script>
+            notyf.success('{{ session('status') }}');
+        </script>
+    @endPushIf
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center justify-between flex-wrap">
@@ -22,8 +25,9 @@
         @csrf
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-8  items-start">
             <div class="grow space-y-4">
-                <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '', overflow: false, siteNewsPath: '{{ url('news') }}' }">
+                <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '{{ old('permalink', url('news')) }}', overflow: false, siteNewsPath: '{{ url('news') }}' }">
                     <x-text-input class="w-full" placeholder="{{ __('Title') }}" name="title" id="title"
+                        value="{{ old('title') }}"
                         required autofocus
                         @input=" permalink = siteNewsPath + '/' + $event.target.value.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '').substring(0, 100);
                                  overflow = $event.target.value.length > 60">
@@ -39,7 +43,7 @@
                             class="border border-gray-300 rounded-md w-full hidden" readonly>
                     </div>
 
-                    <x-quill name="body" value="" placeholder="Content here..." :endpoint="`{{ route('upload') }}`"
+                    <x-quill name="body" value="{{ old('body') }}" placeholder="Content here..." :endpoint="`{{ route('upload') }}`"
                         :formId="'news-form'" />
                 </div>
             </div>

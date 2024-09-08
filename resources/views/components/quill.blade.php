@@ -107,11 +107,6 @@
         if (html === '<p><br></p>') html = ''
         content = html;
     });
-    quill.clipboard.addMatcher(Node.ELEMENT_NODE, function(node, delta) {
-        var plaintext = node.innerText.replace(/\s+/g, ' ').trim();
-        var Delta = Quill.import('delta');
-        return new Delta().insert(plaintext);
-    });
     content = (quill.root.innerHTML === '<p><br></p>') ?
         '' :
         quill.root.innerHTML;

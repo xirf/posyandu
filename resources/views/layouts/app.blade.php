@@ -13,6 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     {{-- for push sty;e --}}
 
+    <link rel="stylesheet" href="/css/notify.css">
     @stack('style')
 
     <!-- Scripts -->
@@ -37,6 +38,28 @@
             {{ $slot }}
         </main>
     </div>
+    <script src="/js/notify.js"></script>
+    <script>
+        var notyf = new Notyf({
+            position: {
+                x: 'right',
+                y: 'top'
+            },
+            duration: 5000,
+            types: [,
+                {
+                    type: 'error',
+                    background: '#f87171',
+                    dismissible: true
+                },
+                {
+                    type: 'success',
+                    background: '#34d399',
+                    dismissible: true
+                }
+            ]
+        });
+    </script>
     @stack('modals')
     @stack('script')
 </body>

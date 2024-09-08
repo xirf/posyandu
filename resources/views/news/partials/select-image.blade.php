@@ -1,7 +1,7 @@
 @props(['endpoint' => route('upload')])
 
 <div class="shadow bg-white sm:rounded-lg space-y-4 p-4" x-data="{
-    x_img: null,
+    x_img: '{{ $old }}',
     x_availableImages: [],
     x_selectedImage: null,
     x_isImageLoading: true,

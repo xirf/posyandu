@@ -1,7 +1,5 @@
 <!-- Select -->
-<select
-    name="{{ $name }}"
-    id="{{ $id }}"
+<select name="{{ $name }}" id="{{ $id }}"
     data-hs-select='{
     "placeholder": "{{ $placeholder }}",
     "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
@@ -13,8 +11,8 @@
   }'
     class="hidden">
     @foreach ($options as $option)
-        <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
+        <option value="{{ $option['value'] }}" selected="{{ $selected == $option['value'] ? 'selected' : '' }}">
+            {{ $option['label'] }}</option>
     @endforeach
 </select>
 <!-- End Select -->
-
