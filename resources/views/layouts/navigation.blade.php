@@ -5,6 +5,8 @@
         'dashboard.activity' => 'Kegiatan',
         'dashboard.posyandu' => 'Posyandu',
         'dashboard.user' => 'Pengguna',
+        'dashboard.user' => 'Lainnya',
+        
     ];
 @endphp
 

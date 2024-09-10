@@ -47,4 +47,4 @@
     </x-multi-select>
 </div>
 
-@include('news.partials.select-image', ['old' => old('image', null)])
+@include('newsAndActivity.partials.select-image', ['old' => old('image', null)])

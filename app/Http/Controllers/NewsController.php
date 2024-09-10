@@ -12,7 +12,10 @@ class NewsController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return view('news.all');
+        $name = "news";
+        return view('newsAndActivity.all', [
+            'name' => $name
+        ]);
     }
 
     /**
@@ -30,8 +33,10 @@ class NewsController extends Controller {
         });
 
 
-        return view('news.new', [
-            'tags' => $allTags
+        return view('newsAndActivity.new', [
+            'tags' => $allTags,
+            'name' => 'news',
+            'submit_to' => route('dashboard.news.store')
         ]);
     }
 
