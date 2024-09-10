@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ReportModelSeeder extends Seeder
+class MedicalRecordModelSeeder extends Seeder
 {
     /**
      * Run the database seeds.

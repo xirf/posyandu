@@ -1,4 +1,3 @@
-<!-- Select -->
 <select name="{{ $name }}" id="{{ $id }}"
     data-hs-select='{
     "placeholder": "{{ $placeholder }}",
@@ -15,4 +14,3 @@
             {{ $option['label'] }}</option>
     @endforeach
 </select>
-<!-- End Select -->
