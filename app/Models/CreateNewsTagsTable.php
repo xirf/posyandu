@@ -1,6 +1,7 @@
 <?php
 
 // database/migrations/create_news_tags_table.php
+namespace App\Models;
 
 use App\Models\News;
 use App\Models\Tag;

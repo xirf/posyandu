@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\MedicalRecordModel;
 use App\Models\PatientModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MedicalRecordController extends Controller {
     /**
@@ -12,7 +14,9 @@ class MedicalRecordController extends Controller {
      */
     public function index() {
         // get all medical records  with patient information
-        $medicalRecords = MedicalRecordModel::with('patient')->get();
+        $medicalRecords = MedicalRecordModel::with('patient')
+            ->orderBy('created_at', 'desc')
+            ->paginate(100);
 
         return view('report.all', [
             'medicalRecords' => $medicalRecords
@@ -24,6 +28,16 @@ class MedicalRecordController extends Controller {
      */
     public function create() {
         return view('report.new');
+    }
+
+    public function getTable(Request $request) {
+        Log::info('User ID: ' . Auth::id());
+        Log::info('Authenticated: ' . Auth::check());
+
+        $medicalRecords = MedicalRecordModel::with('patient')
+            ->orderBy('created_at', 'desc')
+            ->paginate(100);
+        return response()->json($medicalRecords);
     }
 
     /**

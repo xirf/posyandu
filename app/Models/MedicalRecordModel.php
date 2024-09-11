@@ -24,7 +24,7 @@ class MedicalRecordModel extends Model
         'diabetes',
         'complaints',
         'therapy',
-        'age_category' // enum ['infant', 'child', 'teenager', 'adult', 'elderly']
+        'age_category'
     ];
 
     protected $casts = [

@@ -1,5 +1,5 @@
 import Alpine from 'alpinejs';
-import { initFlowbite } from 'flowbite';
+import './bootstrap'
 
 window.Alpine = Alpine;
 
@@ -10,7 +10,3 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-
-initFlowbite({
-
-})
