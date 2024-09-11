@@ -15,13 +15,14 @@ class PatientModel extends Model {
         'name',
         'birth_date',
         'place_of_birth',
+        'nik',
         'gender',
         'address',
     ];
 
     // Only encrypt sensitive fields
     protected $encryptable = [
-        'name',
+        'nik',
         'birth_date',
         'place_of_birth',
         'address',

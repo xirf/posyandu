@@ -7,33 +7,31 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 
 trait Encryptable {
-
-    // Decrypt values when retrieving from the database
     public function getAttribute($key) {
         $value = parent::getAttribute($key);
-
-        if (in_array($key, $this->encryptable)) {
-            try {
-                return Crypt::decrypt($value);
-            } catch (Exception $e) {
-                Log::error("Failed to decrypt $key: " . $e->getMessage());
-                return null;
-            }
+        if (in_array($key, $this->encryptable) && !empty($value)) {
+            $value = decrypt($value);
         }
 
         return $value;
     }
 
-    // Encrypt values when saving to the database
     public function setAttribute($key, $value) {
-        if (in_array($key, $this->encryptable) && !is_null($value)) {
-            try {
-                $value = Crypt::encrypt($value);
-            } catch (Exception $e) {
-                Log::error("Failed to encrypt $key: " . $e->getMessage());
-            }
+        if (in_array($key, $this->encryptable)) {
+            $value = encrypt($value);
         }
 
         return parent::setAttribute($key, $value);
+    }
+
+    public function attributesToArray() {
+        $attributes = parent::attributesToArray();
+        foreach ($this->encryptable as $key) {
+            if (isset($attributes[$key])) {
+                $attributes[$key] = decrypt($attributes[$key]);
+            }
+        }
+
+        return $attributes;
     }
 }
