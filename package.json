@@ -20,6 +20,6 @@
     },
     "type": "module",
     "dependencies": {
-        "preline": "^2.4.1"
+        "flowbite": "^2.5.1"
     }
 }

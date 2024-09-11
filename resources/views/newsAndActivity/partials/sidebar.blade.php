@@ -20,7 +20,7 @@
                     'value' => 'published',
                     'label' => 'Published',
                 ],
-            ]" :placeholder="__('Choose')" :selected="old('status')" />
+            ]" :placeholder="__('Choose')" :selected="old('status', 'published')" />
         </div>
     </div>
     <div class="grid grid-cols-3 gap-4">
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="w-full flex justify-end">
-        <x-primary-button>{{ __('Publish') }}</x-primary-button>
+        <x-primary-button>{{ __('Save') }}</x-primary-button>
     </div>
 </div>
 <div class="shadow bg-white sm:rounded-lg space-y-4 p-4 ">
