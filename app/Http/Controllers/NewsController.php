@@ -24,7 +24,6 @@ class NewsController extends Controller {
     public function create() {
         $allTags = Tag::all();
 
-        // convert to [['value' => 'All The Time', 'label' => 'All The Time'], ['value' => 'Angles', 'label' => 'Angles']]
         $allTags = $allTags->map(function ($tag) {
             return [
                 'value' => $tag->name,

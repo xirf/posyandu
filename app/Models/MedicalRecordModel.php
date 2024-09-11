@@ -22,7 +22,23 @@ class MedicalRecordModel extends Model
         'diabetes',
         'complaints',
         'therapy',
+        'age_category' // enum ['infant', 'child', 'teenager', 'adult', 'elderly']
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+
+    public const AGE = [
+        'infant',
+        'child',
+        'teenager',
+        'adult',
+        'elderly'
+    ];    
+
 
     // Encrypt only sensitive fields
     protected $encryptable = [

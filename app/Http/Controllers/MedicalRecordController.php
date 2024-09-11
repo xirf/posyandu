@@ -11,7 +11,7 @@ class MedicalRecordController extends Controller
      */
     public function index()
     {
-        //
+        return view('report.all');
     }
 
     /**
@@ -19,7 +19,7 @@ class MedicalRecordController extends Controller
      */
     public function create()
     {
-        //
+        return view('report.new');
     }
 
     /**

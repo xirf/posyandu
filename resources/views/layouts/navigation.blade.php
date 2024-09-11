@@ -3,7 +3,7 @@
         'dashboard' => 'Beranda',
         'dashboard.news' => 'Berita',
         'dashboard.activity' => 'Kegiatan',
-        'dashboard.posyandu' => 'Posyandu',
+        'dashboard.report' => 'Posyandu',
         'dashboard.user' => 'Pengguna',
         'dashboard.user' => 'Lainnya',
         
