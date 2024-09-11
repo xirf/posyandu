@@ -1,6 +1,5 @@
-import 'flowbite'
-
 import Alpine from 'alpinejs';
+import { initFlowbite } from 'flowbite';
 
 window.Alpine = Alpine;
 
@@ -10,3 +9,8 @@ function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
+
+
+initFlowbite({
+
+})

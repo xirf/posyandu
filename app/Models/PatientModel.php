@@ -6,9 +6,10 @@ use App\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PatientModel extends Model
-{
+class PatientModel extends Model {
     use HasFactory, Encryptable;
+
+    protected $table = 'patient';
 
     protected $fillable = [
         'name',
@@ -26,8 +27,7 @@ class PatientModel extends Model
         'address',
     ];
 
-    public function medicalRecords()
-    {
-        return $this->hasMany(MedicalRecordModel::class);
+    public function medicalRecords() {
+        return $this->hasMany(MedicalRecordModel::class, 'patient_id');
     }
 }

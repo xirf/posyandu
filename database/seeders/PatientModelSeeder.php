@@ -12,6 +12,6 @@ class PatientModelSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
     }
 }

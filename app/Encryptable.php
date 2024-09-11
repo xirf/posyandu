@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Support\Facades\Crypt;
 use Exception;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Log;
 
 trait Encryptable {

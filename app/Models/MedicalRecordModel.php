@@ -10,6 +10,8 @@ class MedicalRecordModel extends Model
 {
     use HasFactory, Encryptable;
 
+    protected $table = 'medical_record';
+
     protected $fillable = [
         'patient_id',
         'weight',
@@ -48,6 +50,6 @@ class MedicalRecordModel extends Model
 
     public function patient()
     {
-        return $this->belongsTo(PatientModel::class);
+        return $this->belongsTo(PatientModel::class, 'patient_id');
     }
 }
