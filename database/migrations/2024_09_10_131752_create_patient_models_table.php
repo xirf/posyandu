@@ -34,6 +34,7 @@ return new class extends Migration {
             $table->text('therapy');
             $table->enum('age_category', ['infant', 'child', 'teenager', 'adult', 'elderly']);
             $table->string('complaint');
+            $table->timestamps();
         });
     }
 
