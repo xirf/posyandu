@@ -2,8 +2,8 @@
 
 </div>
 
-<div class="w-full bg-white shadow-md rounded-lg p-6">
-    <div class="overflow-x-auto">
+<div class="w-full bg-white shadow-md rounded-lg p-6 ">
+    <div class="overflow-x-auto h-[80vh]">
         <table class="table table-zebra table-xs table-pin-rows table-pin-cols" id="table">
             <thead>
                 <tr>
@@ -50,8 +50,8 @@
                 <p class="font-bold text-base line-clamp-1" id="name">Hart Hagerty</p>
                 <div class="grid">
                     <div class="text-xs opacity-50">
-                        <span id="gender" class="rounded-full bg-blue-600 px-2 text-white">L</span> <span
-                            id="place-of-birth">Magetan</span> &middot; <span id="date-of-birth">12 Mei 2002</span>
+                        <span id="gender" class="rounded-full px-2 text-white">L</span> 
+                        <span id="place-of-birth">Magetan</span> &middot; <span id="date-of-birth">12 Mei 2002</span>
                     </div>
                     <div class="text-xs opacity-50">
                         <span id="address">Plangkrongan, Poncol, Magetan</span>
@@ -95,6 +95,24 @@
 
 @pushOnce('script')
     <script>
+        const i18n = {
+            'no-data': '{{ __('No data available') }}',
+            'loading': '{{ __('Loading...') }}',
+            'no-results': '{{ __('No results found') }}',
+            'page': '{{ __('Page') }}',
+            'of': '{{ __('of') }}',
+            'rows': '{{ __('rows') }}',
+            'next': '{{ __('Next') }}',
+            'prev': '{{ __('Previous') }}',
+            'infant': '{{ __('Infant') }}',
+            'child': '{{ __('Child') }}',
+            'teenager': '{{ __('Teenager') }}',
+            'adult': '{{ __('Adult') }}',
+            'elderly': '{{ __('Elderly') }}',
+            'male': '{{ __('Male') }}',
+            'female': '{{ __('Female') }}',
+        }
+
         const table = document.getElementById('table');
         const targetBody = document.getElementById('target-body');
 
@@ -130,7 +148,10 @@
                 const complaint = row.querySelector('#complaint');
                 const therapy = row.querySelector('#therapy');
                 const ageCategory = row.querySelector('#age-category');
+                const gender = row.querySelector('#gender');
 
+                gender.classList.add(item.patient.gender != 'male' ? 'bg-pink-500' : 'bg-blue-600');
+                gender.textContent = i18n[item.patient.gender];
                 no.textContent = index + 1;
                 name.textContent = item.patient.name;
                 birthDate.textContent = item.patient.birth_date;
@@ -144,7 +165,7 @@
                 // diabetes.textContent = item.diabetes ? 'Yes' : 'No';
                 complaint.textContent = item.complaint;
                 therapy.textContent = item.therapy;
-                ageCategory.textContent = item.age_category;
+                ageCategory.textContent = i18n[item.age_category];
 
                 targetBody.appendChild(row);
             });

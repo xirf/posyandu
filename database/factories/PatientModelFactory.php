@@ -14,6 +14,7 @@ class PatientModelFactory extends Factory {
     public function definition() {
         return [
             'name' => $this->faker->name,
+            'nik' => $this->faker->unique()->numerify('##################'),
             'birth_date' => $this->faker->date('Y-m-d'),
             'place_of_birth' => $this->faker->city,
             'gender' => $this->faker->randomElement(['male', 'female']),

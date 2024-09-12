@@ -17,8 +17,16 @@ class PatientApiController extends Controller {
             $name = strtolower($request->input('name'));
             $query->whereRaw('LOWER(name) LIKE ?', ["%$name%"]);
         }
-   
-        $patients = $query->paginate(10);
+
+        $patients = $query->take(20)->get();
+
+        // wait for 1 second to simulate a slow API
+        sleep(1000);
+        return response()->json($patients);
+    }
+
+    public function index() {
+        $patients = PatientModel::take(20)->get();
 
         return response()->json($patients);
     }

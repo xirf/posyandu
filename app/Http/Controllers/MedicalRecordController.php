@@ -31,9 +31,6 @@ class MedicalRecordController extends Controller {
     }
 
     public function getTable(Request $request) {
-        Log::info('User ID: ' . Auth::id());
-        Log::info('Authenticated: ' . Auth::check());
-
         $medicalRecords = MedicalRecordModel::with('patient')
             ->orderBy('created_at', 'desc')
             ->paginate(100);

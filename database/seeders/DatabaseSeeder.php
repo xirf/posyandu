@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder {
      */
     public function run(): void {
         // User::factory(10)->create();
-        User::factory()->create([
-            'name' => 'Administrator',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'picture' => 'https://i.pravatar.cc/150?img=1',
-            'bio' => 'Administrator',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Administrator',
+        //     'email' => 'admin@admin.com',
+        //     'password' => bcrypt('password'),
+        //     'picture' => 'https://i.pravatar.cc/150?img=1',
+        //     'bio' => 'Administrator',
+        // ]);
 
         PatientModel::factory()
             ->count(50)
