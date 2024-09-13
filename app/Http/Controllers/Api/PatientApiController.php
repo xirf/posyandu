@@ -20,8 +20,7 @@ class PatientApiController extends Controller {
 
         $patients = $query->take(20)->get();
 
-        // wait for 1 second to simulate a slow API
-        sleep(1000);
+
         return response()->json($patients);
     }
 

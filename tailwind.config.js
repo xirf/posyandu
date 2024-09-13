@@ -24,6 +24,13 @@ export default {
         require("daisyui")
     ],
     daisyui: {
-        themes: ["light"],
-      },
+        themes: [{
+            light: {
+                ...require("daisyui/src/theming/themes")[ "light" ],
+                primary: "#06b6d4",
+                "primary-content": "#fff"
+            }
+        }]
+    },
+    whitelist: ['border-l-blue-500', 'border-l-pink-500'],
 };
