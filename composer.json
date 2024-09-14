@@ -6,18 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "blade-ui-kit/blade-heroicons": "^2.4",
-        "blade-ui-kit/blade-icons": "^1.7",
-        "gehrisandro/tailwind-merge-laravel": "^1.2",
         "laravel/framework": "^11.9",
-        "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9",
-        "laravel/ui": "^4.5",
-        "livewire/volt": "^1.6"
+        "laravel/tinker": "^2.9"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/breeze": "^2.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
