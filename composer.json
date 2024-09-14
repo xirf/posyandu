@@ -6,7 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "^2.4",
+        "blade-ui-kit/blade-icons": "^1.7",
+        "codeat3/blade-unicons": "^1.8",
+        "gehrisandro/tailwind-merge-laravel": "^1.2",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
