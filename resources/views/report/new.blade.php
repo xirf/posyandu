@@ -24,37 +24,47 @@
         <script>
             const form = document.getElementById("addNewDataForm");
             const submitBtn = document.getElementById("submitBtn");
-            const endpoint = '';
+            const endpoint = '{{ route('api.new.medical.records') }}';
             let isLoading = false;
 
-            submitBtn.addEventListener('click', ()=>{
+            submitBtn.addEventListener('click', () => {
                 saveMedicalRecord()
             })
 
             function saveMedicalRecord() {
+                let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
                 const formData = new FormData(form);
-                console.log(formData);
-                // fetch(endpoint, {
-                //         method: 'POST',
-                //         body: formData
-                //     })
-                //     .then(response => response.json())
-                //     .then(data => {
-                //         console.log(data);
-                //         if (data.success) {
-                //             alert('Data saved successfully');
-                //             form.reset();
-                //         } else {
-                //             alert('Failed to save data');
-                //         }
-                //     })
-                //     .catch(error => {
-                //         console.error('Error:', error);
-                //         alert('Failed to save data');
-                //     }).finally(() => {
-                //         isLoading = false;
-                //         submitBtn.disabled = false;
-                //         form.reset()
+
+                if(formData.get('name') === '') {
+                    notyf.error('Nama tidak boleh kosong');
+                    return;
+                }
+
+                fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Data saved successfully');
+                            form.reset();
+                        } else {
+                            alert('Failed to save data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to save data');
+                    }).finally(() => {
+                        isLoading = false;
+                        submitBtn.disabled = false;
+                        form.reset()
                     });
             }
         </script>

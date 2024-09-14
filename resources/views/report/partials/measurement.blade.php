@@ -31,7 +31,7 @@
         <div class="flex flex-wrap gap-y-2 gap-x-4">
             @foreach ($medicalHistory as $item)
                 <div class="flex gap-2 items-center">
-                    <input type="checkbox" id="{{ $item[0] }}" class="checkbox checkbox-sm checkbox-primary peer" />
+                    <input type="checkbox" id="{{ $item[0] }}" class="checkbox checkbox-sm checkbox-primary peer" name="{{ $item[0] }}" value="true">
                     <label for="{{ $item[0] }}"
                         class="">
                         <span>{{ $item[1] }}</span>
