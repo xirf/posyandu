@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\shared;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class select-image extends Component
+class SelectImage extends Component
 {
     /**
      * Create a new component instance.

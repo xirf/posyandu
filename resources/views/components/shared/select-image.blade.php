@@ -1,7 +1,7 @@
 @props(['endpoint' => route('upload')])
 
 <div class="shadow bg-white sm:rounded-lg space-y-4 p-4" x-data="{
-    x_img: '{{ $old }}',
+    x_img: '{{old('image', '')}}',
     x_availableImages: [],
     x_selectedImage: null,
     x_isImageLoading: true,
@@ -31,7 +31,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                this.x_img = '/' + data.url
+                this.x_img = data.url
                 $dispatch('close-modal', 'add-thumbnail-modal');
             })
             .catch(error => console.error(error));
@@ -39,7 +39,7 @@
 
     x_insertSelectedImage() {
         if (this.x_selectedImage) {
-            this.x_img = this.x_selectedImage.replace('public/', '/storage/');
+            this.x_img = this.x_selectedImage;
             $dispatch('close-modal', 'add-thumbnail-modal');
         }
     },
@@ -85,7 +85,7 @@
                             :class="x_selectedImage === image ? 'border-2 border-cyan-500' : 'border-none'">
                             <input type="radio" name="selected_image" :id="'x_' + image"
                                 @change="x_selectedImage = image" class="hidden">
-                            <img :src="image.replace('public/', '/storage/')" class="w-full h-full object-cover"
+                            <img :src="image" class="w-full h-full object-cover"
                                 :alt="image">
                             <div class="absolute bottom-2 left-2 rounded-full p-1 bg-cyan-500"
                                 x-show="x_selectedImage === image" x-transition:enter="transition ease-out duration-300"

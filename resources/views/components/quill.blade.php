@@ -1,8 +1,8 @@
-@pushOnce('style')
+@pushOnce('styles')
     <link href="/css/quill.snow.css" rel="stylesheet">
 @endPushOnce
 
-@pushOnce('script')
+@pushOnce('scripts')
     <script src="/js/quill.js" defer></script>
     <script src="/js/quill-image-resize.js" defer></script>
 @endPushOnce

@@ -12,8 +12,14 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- Styles --}}
+    <link rel="stylesheet" href="/css/notify.css">
+    @stack('styles')
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 <body class="font-sans antialiased">
@@ -30,46 +36,6 @@
                         @isset($header)
                             {{ $header }}
                         @endisset
-                        <div class="self-end">
-                            <x-dropdown align="right" width="48">
-                                <x-slot name="trigger">
-                                    <button class="inline-flex">
-                                        <div class="flex gap-4 ">
-                                            <div class="w-full grow text-right">
-                                                <div class="font-medium text-base text-gray-800">
-                                                    {{ Auth::user()->name }}</div>
-                                                <div class="font-medium text-xs text-gray-500">
-                                                    {{ Auth::user()->email }}</div>
-                                            </div>
-                                            <picture class="shrink-0 relative">
-                                                <img src="{{ Auth::user()->picture ?: 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
-                                                    class="w-10 h-10 rounded-full" />
-                                                <x-heroicon-o-chevron-down class="absolute bottom-0 right-0 w-4 h-4 text-gray-800  bg-white rounded-full p-[2px]" />
-                                            </picture>
-                                        </div>
-
-                                        
-                                    </button>
-                                </x-slot>
-
-                                <x-slot name="content">
-                                    <x-dropdown-link :href="route('profile.edit')" class="flex items-center gap-4">
-                                        <x-heroicon-o-user class="w-4 h-4" />
-                                        {{ __('Profile') }}
-                                    </x-dropdown-link>
-
-                                    <!-- Authentication -->
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-
-                                        <x-dropdown-link :href="route('logout')" class="flex items-center gap-4" onclick="event.preventDefault(); this.closest('form').submit();">
-                                            <x-heroicon-o-arrow-right-on-rectangle class="w-4 h-4" />
-                                            {{ __('Log Out') }}
-                                        </x-dropdown-link>
-                                    </form>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
                     </div>
                 </header>
 
@@ -87,6 +53,31 @@
         </div>
 
     </div>
+
+    <script src="/js/notify.js"></script>
+    <script>
+        var notyf = new Notyf({
+            position: {
+                x: 'right',
+                y: 'top'
+            },
+            duration: 5000,
+            types: [,
+                {
+                    type: 'error',
+                    background: '#f87171',
+                    dismissible: true
+                },
+                {
+                    type: 'success',
+                    background: '#34d399',
+                    dismissible: true
+                }
+            ]
+        });
+    </script>
+    @stack('modals')
+    @stack('scripts')
 </body>
 
 </html>

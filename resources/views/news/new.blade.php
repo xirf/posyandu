@@ -1,20 +1,4 @@
 <x-app-layout>
-
-    {{-- error handler --}}
-    @pushIf($errors, 'script')
-        <script>
-            @foreach ($errors->all() as $error)
-                notyf.error('{{ $error }}');
-            @endforeach
-        </script>
-    @endPushIf
-
-    @pushIf(session('status'), 'script')
-        <script>
-            notyf.success('{{ session('status') }}');
-        </script>
-    @endPushIf
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center justify-between flex-wrap">
             {{ __('Add News') }}
@@ -27,8 +11,7 @@
             <div class="grow space-y-4">
                 <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '{{ old('permalink', url('news')) }}', overflow: false, sitePath: '{{ url('news') }}' }">
                     <x-text-input class="w-full" placeholder="{{ __('Title') }}" name="title" id="title"
-                        value="{{ old('title') }}"
-                        required autofocus
+                        value="{{ old('title') }}" required autofocus
                         @input=" permalink = sitePath + '/' + $event.target.value.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '').substring(0, 100);
                                  overflow = $event.target.value.length > 60">
                     </x-text-input>
@@ -49,8 +32,23 @@
             </div>
 
             <div class="w-full max-w-md space-y-4">
-                @include('.partials.sidebar', ['tags' => $tags])
+                @include('news.partials.sidebar', ['tags' => $tags])
             </div>
         </div>
     </form>
+
+
+    @pushIf($errors, 'scripts')
+    <script>
+        @foreach ($errors->all() as $error)
+            notyf.error('{{ $error }}');
+        @endforeach
+    </script>
+    @endPushIf
+    @pushIf(session('success'), 'scripts')
+    <script>
+        notyf.success('{{ session('success') }}');
+    </script>
+    @endPushIf
+
 </x-app-layout>

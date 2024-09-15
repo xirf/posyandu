@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\Tag;
 use App\Rules\NotEmptyContent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller {
     /**
@@ -32,7 +33,7 @@ class NewsController extends Controller {
         });
 
 
-        return view('newsAndActivity.new', [
+        return view('news.new', [
             'tags' => $allTags,
             'name' => 'news',
             'submit_to' => route('dashboard.news.store')
@@ -66,6 +67,7 @@ class NewsController extends Controller {
         }
 
         $post = News::create([
+            'user_id' => Auth::user()->id,
             'title' => $validatedData['title'],
             'status' => $validatedData['status'] === 'published' ? News::STATUS_PUBLISHED : News::STATUS_DRAFT,
             'slug' => str_replace(' ', '-', strtolower($validatedData['title'])),

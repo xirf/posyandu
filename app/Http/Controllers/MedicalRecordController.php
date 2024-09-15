@@ -15,7 +15,7 @@ class MedicalRecordController extends Controller {
             ->orderBy('created_at', 'desc')
             ->paginate(100);
 
-        return view('report.all', [
+        return view('posyandu.all', [
             'medicalRecords' => $medicalRecords
         ]);
     }
@@ -24,7 +24,7 @@ class MedicalRecordController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('report.new');
+        return view('posyandu.new');
     }
 
     public function getTable(Request $request) {

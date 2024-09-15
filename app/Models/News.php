@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model {
     protected $fillable = [
+        'user_id',
         'title',
         'slug',
         'thumbnail',
