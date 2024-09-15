@@ -20,13 +20,13 @@ return new class extends Migration {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nik')->nullable();
-            $table->date('birthdate')->nullable();
-            $table->string('place_of_birth')->nullable();
+            $table->text('nik')->nullable();
+            $table->text('birthdate')->nullable();
+            $table->text('place_of_birth')->nullable();
             $table->enum('gender', ['male', 'female']);
-            $table->string('rt');
-            $table->string('rw');
-            $table->string('dukuh');
+            $table->text('rt');
+            $table->text('rw');
+            $table->text('dukuh');
             $table->enum('age_group', ['infant', 'child', 'teenager', 'adult', 'elderly']);
             $table->timestamps();
         });

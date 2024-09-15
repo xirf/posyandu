@@ -12,5 +12,7 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth')->group(function () {
     Route::get('/get/uploads', [FileController::class, "index"])->name('get.images');
     Route::post('/uploads', [FileController::class, "store"])->name('upload');
-    Route::get('/posyandu/table', [PosyanduTableController::class, "index"])->name('posyandu.table');
 });
+
+
+Route::get('/posyandu/table', [PosyanduTableController::class, "index"])->name('posyandu.table');

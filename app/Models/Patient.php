@@ -49,3 +49,4 @@ class Patient extends Model {
         return $this->hasMany(MedicalRecord::class, 'patient_id');
     }
 }
+

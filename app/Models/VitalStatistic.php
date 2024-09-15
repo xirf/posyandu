@@ -28,6 +28,6 @@ class VitalStatistic extends Model
 
     public function medicalRecord()
     {
-        return $this->belongsTo(MedicalRecord::class);
+        return $this->belongsTo(MedicalRecord::class, 'medical_record_id');
     }
 }

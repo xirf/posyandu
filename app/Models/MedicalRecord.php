@@ -29,14 +29,15 @@ class MedicalRecord extends Model {
     ];
 
     public function patient() {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Patient::class, 'patient_id');
     }
 
     public function vitalStatistics() {
-        return $this->hasMany(VitalStatistic::class);
+        return $this->hasOne(VitalStatistic::class, 'medical_record_id');
     }
 
     public function labResults() {
-        return $this->hasMany(LabResult::class);
+        return $this->hasOne(LabResult::class, 'medical_record_id');
     }
 }
+
