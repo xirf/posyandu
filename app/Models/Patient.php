@@ -20,9 +20,9 @@ class Patient extends Model {
         'rt',
         'rw',
         'dukuh',
+        'age_group',
     ];
 
-    // Only encrypt sensitive fields
     protected $encryptable = [
         'nik',
         'rt',
@@ -31,6 +31,18 @@ class Patient extends Model {
         'birth_date',
         'place_of_birth',
         'address',
+    ];
+
+    protected $casts = [
+        'age_group' => 'string',
+    ];
+
+    public const AGE_GROUPS = [
+        'infant' => 'infant',
+        'child' => 'child',
+        'teenager' => 'teenager',
+        'adult' => 'adult',
+        'elderly' => 'elderly',
     ];
 
     public function medicalRecords() {

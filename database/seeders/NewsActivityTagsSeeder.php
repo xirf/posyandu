@@ -87,16 +87,5 @@ class NewsActivityTagsSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-
-        // Attach medias to activities
-        $mediaIds = DB::table('medias')->pluck('id');
-        foreach ($activityIds as $activityId) {
-            DB::table('activity_medias')->insert([
-                'activity_id' => $activityId,
-                'media_id' => $mediaIds->random(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
     }
 }

@@ -26,7 +26,7 @@
     <div class="min-h-screen bg-gray-100">
         <div class="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content">
+            <div class="drawer-content min-h-screen flex flex-col">
                 <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
                     Open drawer
                 </label>
@@ -40,7 +40,7 @@
                 </header>
 
                 <!-- Page Content -->
-                <main>
+                <main class="grow">
                     {{ $slot }}
                 </main>
             </div>

@@ -43,7 +43,7 @@
         @foreach ($menus as $item)
             <li>
                 <a href="{{ route($item[0]) }}"
-                    class="flex items-center gap-4 py-2 px-4 {{ request()->routeIs($item[0]) ? 'bg-cyan-500 text-white' : 'text-gray-600 hover:text-gray-800' }}">
+                    class="flex items-center gap-4 py-2 px-4 {{ request()->routeIs($item[0]) ? 'bg-cyan-500 text-white hover:bg-cyan-500' : 'text-gray-600 hover:text-gray-800' }}">
                     {!! $item[2] !!}
                     <span>{{ $item[1] }}</span>
                 </a>

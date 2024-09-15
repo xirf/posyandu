@@ -4,8 +4,8 @@
             {{ __('Posyandu') }}
         </h2>
     </x-slot>
-    <div class="">
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="h-full">
+        <div class="max-w-full sm:px-6 lg:p-8 bg-white shadow h-full">
             @include('posyandu.partials.table')
         </div>
     </div>

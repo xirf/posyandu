@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('rt');
             $table->string('rw');
             $table->string('dukuh');
+            $table->enum('age_group', ['infant', 'child', 'teenager', 'adult', 'elderly']);
             $table->timestamps();
         });
 

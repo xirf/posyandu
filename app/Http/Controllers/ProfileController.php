@@ -33,7 +33,7 @@ class ProfileController extends Controller {
         
         if ($request->file('picture')) {
             $filename = uniqid() . '.' . $request->file('picture')->getClientOriginalExtension();
-            Storage::disk('public')->putFileAs('profile-pictures', $request->file('picture'), $filename);
+            Storage::disk('local')->putFileAs('profile-pictures', $request->file('picture'), $filename);
             $request->user()->picture =  Storage::url('profile-pictures/' . $filename);
         }
         if ($request->bio) {
