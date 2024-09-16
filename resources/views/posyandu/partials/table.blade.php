@@ -1,119 +1,113 @@
-@php
-    $menus = [__('All'), __('Infant'), __('Child'), __('Teenager'), __('Adult'), __('Elderly')];
-@endphp
+@pushOnce('styles')
+    <style>
+        /* make cols sticky */
+        thead>tr>th:first-child,
+        tbody>tr>td:first-child {
+            background-color: inherit;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+        }
 
-<div class="w-full h-full flex flex-col">
-    <div class="w-full flex z-50 justify-between">
-        <div class="flex gap-4">
-            <div x-data="{ isOpen: false, openedWithKeyboard: false, selected: '{{ $menus[0] }}' }" class="relative" @keydown.esc.window="isOpen = false, openedWithKeyboard = false">
-                <!-- Toggle Button -->
-                <button type="button" @click="isOpen = ! isOpen"
-                    class="inline-flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-md border border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium tracking-wide transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800 dark:border-neutral-700 dark:bg-neutral-900 dark:focus-visible:outline-neutral-300"
-                    aria-haspopup="true" @keydown.space.prevent="openedWithKeyboard = true"
-                    @keydown.enter.prevent="openedWithKeyboard = true" @keydown.down.prevent="openedWithKeyboard = true"
-                    :class="isOpen || openedWithKeyboard ? 'text-neutral-900 dark:text-white' :
-                        'text-neutral-600 dark:text-neutral-300'"
-                    :aria-expanded="isOpen || openedWithKeyboard">
-                    <span x-text="selected"></span>
-                    <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        stroke-width="2" stroke="currentColor" class="size-4 rotate-0">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                </button>
-                <!-- Dropdown Menu -->
-                <div x-cloak x-show="isOpen || openedWithKeyboard" x-transition x-trap="openedWithKeyboard"
-                    @click.outside="isOpen = false, openedWithKeyboard = false"
-                    @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()"
-                    class="absolute top-11 left-0 flex min-w-[12rem] flex-col overflow-hidden rounded-md border border-neutral-300 bg-neutral-50 py-1.5 w-fit z-999"
-                    role="menu">
-                    @foreach ($menus as $menu)
-                        <button
-                            class="bg-neutral-50 px-4 text-left py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none"
-                            role="menuitem"
-                            @click="isOpen = false, selected = '{{ $menu }}', openedWithKeyboard = false">
-                            {{ $menu }}
-                        </button>
-                    @endforeach
-                </div>
-            </div>
-            <div class="relative flex w-full max-w-xs flex-col gap-1 text-neutral-600 dark:text-neutral-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50 dark:text-neutral-300/50"> 
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-                <input type="search" class="w-full rounded-md border border-neutral-300 bg-neutral-50 py-2 pl-10 pr-2 text-sm focus:border-cyan-500 focus:ring-cyan-500  
-                " name="search" placeholder="{{__("Search...")}}" aria-label="{{__("Search...")}}"/>
-            </div>
-        </div>
-        <x-primary-button>Add</x-primary-button>
-    </div>
+        thead {
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
-    <div class="w-full overflow-auto grow border rounded-md mt-6">
-        <table class="table table-zebra w-full table-xs">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="w-8">{{ __('No') }}</th>
-                    <th><span>{{ __('Patient') }}</span></th>
-                    <th><span>{{ __('Address') }}</span></th>
-                    <th><span class="tooltip tooltip-bottom" data-tip="{{ __('Height') }}">{{ __('TB') }}</span>
-                    </th>
-                    <th><span class="tooltip tooltip-bottom" data-tip="{{ __('Weight') }}">{{ __('BB') }}</span>
-                    </th>
-                    <th><span class="tooltip tooltip-bottom"
-                            data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</span></th>
-                    <th><span class="tooltip tooltip-bottom"
-                            data-tip="{{ __('Upper Arm Circumference') }}">{{ __('LILA') }}</span></th>
-                    <th><span class="tooltip tooltip-bottom"
-                            data-tip="{{ __('Abdominal Circumference') }}">{{ __('LP') }}</span></th>
-                    <th><span>{{ __('Cholesterol') }}</span></th>
-                    <th><span>{{ __('LAB') }}</span></th>
-                    <th><span>{{ __('Complaints') }}</span></th>
-                    <th><span>{{ __('Diagnosic') }}</span></th>
-                    <th><span>{{ __('Disease') }}</span></th>
-                    <th><span>{{ __('Medication') }}</span></th>
-                    <th><span>{{ __('Action') }}</span></th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <div class="grid">
-                            <h3 class="text-sm font-bold">[[name]]</h3>
-                            <div class="flex flex-wrap items-center gap-1 text-gray-400">
-                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                                <div>[[place-of-birth]] &middot; [[birthdate]]</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="grid">
-                            <div>[[dukuh]]</div>
-                            <div class="text-gray-400">RT [[rt]] RW [[rw]]</div>
-                        </div>
-                    </td>
-                    <td>[[tb]]</td>
-                    <td>[[bb]]</td>
-                    <td>[[lk]]</td>
-                    <td>[[lila]]</td>
-                    <td>[lp]</td>
-                    <td>[chl]</td>
-                    <td>
-                        <div class="grid">
-                            <div class="">Hemoglobin: [[hb]]</div>
-                            <div class="">GDA: [[gda]]</div>
-                            <div class="">UA: [[gda]]</div>
-                        </div>
-                    </td>
-                    <td>[[compaint]]</td>
-                    <td>[[diagnosic]]</td>
-                    <td>[[disease]]</td>
-                    <td>[[medication]]</td>
-                    <td>
-                        <a href="" class="text-blue-500 hover:underline">Edit</a>
-                        <a href="" class="text-red-500 hover:underline">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        tr:nth-child(even) {
+            background-color: white;
+        }
 
-</div>
+        tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+    </style>
+@endPushOnce
+
+<table class="table">
+    <thead class="bg-gray-50">
+        <tr>
+            <th @click="sortBy('patient.name')" class="w-30 cursor-pointer"><span>{{ __('Patient') }}</span></th>
+            <th @click="sortBy('patient.dukuh')" class="w-30 cursor-pointer"><span>{{ __('Address') }}</span></th>
+            <th @click="sortBy('vital_statistics.height')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Height') }}">{{ __('TB') }}</span> </th>
+            <th @click="sortBy('vital_statistics.weight')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Weight') }}">{{ __('BB') }}</span> </th>
+            <th @click="sortBy('vital_statistics.head_circumference')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</span> </th>
+            <th @click="sortBy('vital_statistics.arm_circumference')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Upper Arm Circumference') }}">{{ __('LILA') }}</span></th>
+            <th @click="sortBy('patient.name')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Abdominal Circumference') }}">{{ __('LP') }}</span></th>
+            <th @click="sortBy('family_planning')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Family Planning') }}">{{ __('KB') }}</span></th>
+            <th @click="sortBy('lab_results.cholesterol')" class="w-20 cursor-pointer"><span>{{ __('Cholesterol') }}</span></th>
+            <th @click="sortBy('lab_results.hemoglobin')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Hemoglobin') }}">{{ __('HB') }}</span></th>
+            <th @click="sortBy('lab_results.gda')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Glucose Level') }}">{{ __('GDA') }}</span></th>
+            <th @click="sortBy('lab_results.ua')" class="w-48 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Urine Test') }}">{{ __('UA') }}</span></th>
+            <th @click="sortBy('complaints')" class="w-48 cursor-pointer"><span>{{ __('Complaints') }}</span></th>
+            <th @click="sortBy('diagnosis')" class="w-48 cursor-pointer"><span>{{ __('Diagnosic') }}</span></th>
+            <th @click="sortBy('diseases')" class="w-48 cursor-pointer"><span>{{ __('Disease') }}</span></th>
+            <th @click="sortBy('medication')" class="w-48 cursor-pointer"><span>{{ __('Medication') }}</span></th>
+    </thead>
+    <tbody>
+        <template x-for="data in activeData.data" :key="data.id">
+            <tr class="hover:bg-cyan-50" x-show="!isLoading && !data.hiddenBySearch">
+                <td>
+                    <div class="grid">
+                        <div :class="{
+                            'text-blue-500': data.patient.gender === 'male',
+                            'text-pink-500': data.patient.gender === 'female',
+                        }"
+                            class="font-bold w-32 truncate text-sm" x-text="data.patient.name"></div>
+                    </div>
+                    <div x-text="`${data.patient.place_of_birth} ${data.patient.birthdate}`"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="grid">
+                        <div x-text="data.patient.dukuh"></div>
+                        <div class="text-gray-400" x-text="`RT ${data.patient.rt}`"></div>
+                        <div class="text-gray-400" x-text="`RW ${data.patient.rw}`"></div>
+                    </div>
+                </td>
+                <td x-text="data.vital_statistics.height"></td>
+                <td x-text="data.vital_statistics.weight"></td>
+                <td x-text="data.vital_statistics.head_circumference"></td>
+                <td x-text="data.vital_statistics.arm_circumference"></td>
+                <td x-text="data.vital_statistics.abdominal_circumference"></td>
+                <td x-text="data.family_planning"></td>
+                <td x-text="data.lab_results.cholesterol"></td>
+                <td x-text="data.lab_results.hemoglobin"></td>
+                <td x-text="data.lab_results.gda"></td>
+                <td x-text="data.lab_results.ua"></td>
+                <td>
+                    <div x-text="data.complaints" class="line-clamp-4"></div>
+                </td>
+                <td>
+                    <div x-text="data.diagnosis" class="line-clamp-4"></div>
+                </td>
+                <td>
+                    <div x-text="data.diseases" class="line-clamp-4"></div>
+                </td>
+                <td>
+                    <div x-text="data.medication" class="line-clamp-4"></div>
+                </td>
+            </tr>
+        </template>
+
+        <tr x-show="isLoading">
+            <td colspan="15" class="text-center">
+                <div class="spinner spinner-primary"></div>
+            </td>
+        </tr>
+
+        <tr x-show="!isLoading && activeData.length === 0">
+            <td colspan="15" class="text-center">
+                <x-empty :text="__('No data available')" :description="__('Try changing your filters to see the Patients')">
+                    <x-slot name="button">
+                        <x-primary-button @click="getTable()">
+                            {{ __('Refresh') }}
+                        </x-primary-button>
+                    </x-slot>
+                </x-empty>
+            </td>
+        </tr>
+    </tbody>
+</table>

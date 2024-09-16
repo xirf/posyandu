@@ -11,21 +11,42 @@ class PosyanduTableController extends Controller {
      * Display a listing of the resource.
      */
     public function index(Request $request) {
-        $age_group = $request->input('age_group');
+        $ageGroup = $request->query('ageGroup');
+        $perPage = $request->query('perPage');
 
-        $medicalRecord = MedicalRecord::query()
-        ->with(['patient', 'vitalStatistics', 'labResults']);
+        if ($ageGroup && !in_array($ageGroup, ['toddler', 'infant', 'child', 'teenager', 'adult', 'elderly', 'all'])) {
+            return response()->json([
+                'message' => 'Invalid age group',
+            ], 400);
+        }
 
-        if ($age_group) {
-            $medicalRecord->whereHas('patient', function ($query) use ($age_group) {
-                $query->where('age_group', $age_group);
+        $medicalRecordsQuery = MedicalRecord::with(['patient', 'vitalStatistics', 'labResults']);
+
+        if ($ageGroup && $ageGroup !== 'all') {
+            $medicalRecordsQuery->whereHas('patient', function ($query) use ($ageGroup) {
+                $query->where('age_group', $ageGroup);
             });
         }
 
-        return response()->json([
-            $medicalRecord->paginate(3),
-        ]);
-        
+        $medicalRecords = $medicalRecordsQuery->paginate($perPage ?? 50);
+
+        return response()->json($medicalRecords);
+    }
+
+    /**
+     * Search for a specific resource.
+     */
+
+    public function search(Request $request) {
+        $search = $request->query('search');
+        $perPage = $request->query('perPage');
+
+        $medicalRecords = MedicalRecord::with(['patient', 'vitalStatistics', 'labResults'])
+            ->whereHas('patient', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->paginate($perPage ?? 50);
+
+        return response()->json($medicalRecords);
     }
 
     /**

@@ -31,13 +31,13 @@
                     Open drawer
                 </label>
 
-                <header class="bg-white shadow">
-                    <div class="mx-auto py-2 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                        @isset($header)
+                @isset($header)
+                    <header class="bg-white shadow">
+                        <div class="mx-auto py-2 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                             {{ $header }}
-                        @endisset
-                    </div>
-                </header>
+                        </div>
+                    </header>
+                @endisset
 
                 <!-- Page Content -->
                 <main class="grow">
