@@ -9,6 +9,11 @@
             z-index: 10;
         }
 
+        th,
+        td {
+            border: 1px solid #d2d6dc;
+        }
+
         thead {
             position: sticky;
             top: 0;
@@ -27,20 +32,33 @@
 @endPushOnce
 
 <table class="table">
-    <thead class="bg-gray-50">
+    <thead class="bg-[#f5f7f9]">
         <tr>
             <th @click="sortBy('patient.name')" class="w-30 cursor-pointer"><span>{{ __('Patient') }}</span></th>
             <th @click="sortBy('patient.dukuh')" class="w-30 cursor-pointer"><span>{{ __('Address') }}</span></th>
-            <th @click="sortBy('vital_statistics.height')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Height') }}">{{ __('TB') }}</span> </th>
-            <th @click="sortBy('vital_statistics.weight')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Weight') }}">{{ __('BB') }}</span> </th>
-            <th @click="sortBy('vital_statistics.head_circumference')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</span> </th>
-            <th @click="sortBy('vital_statistics.arm_circumference')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Upper Arm Circumference') }}">{{ __('LILA') }}</span></th>
-            <th @click="sortBy('patient.name')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Abdominal Circumference') }}">{{ __('LP') }}</span></th>
-            <th @click="sortBy('family_planning')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Family Planning') }}">{{ __('KB') }}</span></th>
-            <th @click="sortBy('lab_results.cholesterol')" class="w-20 cursor-pointer"><span>{{ __('Cholesterol') }}</span></th>
-            <th @click="sortBy('lab_results.hemoglobin')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Hemoglobin') }}">{{ __('HB') }}</span></th>
-            <th @click="sortBy('lab_results.gda')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Glucose Level') }}">{{ __('GDA') }}</span></th>
-            <th @click="sortBy('lab_results.ua')" class="w-48 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Urine Test') }}">{{ __('UA') }}</span></th>
+            <th @click="sortBy('vital_statistics.height')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Height') }}">{{ __('TB') }}</span> </th>
+            <th @click="sortBy('vital_statistics.weight')" class="w-20 cursor-pointer"><span
+                    class="tooltip tooltip-bottom" data-tip="{{ __('Weight') }}">{{ __('BB') }}</span> </th>
+            <th @click="sortBy('vital_statistics.head_circumference')" class="w-20 cursor-pointer"><span
+                    class="tooltip tooltip-bottom" data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</span>
+            </th>
+            <th @click="sortBy('vital_statistics.arm_circumference')" class="w-20 cursor-pointer"><span
+                    class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Upper Arm Circumference') }}">{{ __('LILA') }}</span></th>
+            <th @click="sortBy('patient.name')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Abdominal Circumference') }}">{{ __('LP') }}</span></th>
+            <th @click="sortBy('family_planning')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Family Planning') }}">{{ __('KB') }}</span></th>
+            <th @click="sortBy('lab_results.cholesterol')" class="w-20 cursor-pointer">
+                <span>{{ __('Cholesterol') }}</span>
+            </th>
+            <th @click="sortBy('lab_results.hemoglobin')" class="w-20 cursor-pointer"><span
+                    class="tooltip tooltip-bottom" data-tip="{{ __('Hemoglobin') }}">{{ __('HB') }}</span></th>
+            <th @click="sortBy('lab_results.gda')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Glucose Level') }}">{{ __('GDA') }}</span></th>
+            <th @click="sortBy('lab_results.ua')" class="w-48 cursor-pointer"><span class="tooltip tooltip-bottom"
+                    data-tip="{{ __('Urine Test') }}">{{ __('UA') }}</span></th>
             <th @click="sortBy('complaints')" class="w-48 cursor-pointer"><span>{{ __('Complaints') }}</span></th>
             <th @click="sortBy('diagnosis')" class="w-48 cursor-pointer"><span>{{ __('Diagnosic') }}</span></th>
             <th @click="sortBy('diseases')" class="w-48 cursor-pointer"><span>{{ __('Disease') }}</span></th>

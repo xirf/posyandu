@@ -7,7 +7,7 @@
 
 <x-app-layout>
     <div class="max-w-full sm:p-6 lg:p-8 bg-white shadow h-screen">
-        <div class="w-full grow flex flex-col h-full space-y-4" x-data="{
+        <div class="w-full grow flex flex-col h-full space-y-2" x-data="{
             activeData: [],
             isOpen: false,
             openedWithKeyboard: false,
@@ -25,13 +25,7 @@
                         },
                         params
                     });
-                    if (response.data.links.length > 6) {
-                        let first3 = response.data.links.slice(0, 3);
-                        let last3 = response.data.links.slice(-3);
-                        response.data.links = [...first3, { label: '...', active: false, url: null }, ...last3];
-                    }
                     this.activeData = response.data;
-                    console.log('resdata: ', this.activeData.data);
                 } catch (error) {
                     console.error(error);
                 } finally {
@@ -72,19 +66,20 @@
                 }
             }
         }">
-            <div>
-                <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-200">{{ __('Posyandu') }}</h2>
-                <p>{{__("Click at the name for detailed view")}}</p>
-            </div>
-            <div class="w-full flex z-50 justify-between">
-                <div class="flex gap-4">
-                    @include('posyandu.partials.age-filter')
-                    @include('posyandu.partials.search')
+            <div class="w-full flex z-50 flex-end gap-4">
+                <div class="grow">
+                    <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-200">{{ __('Posyandu') }}</h2>
+                    <p class="text-xs font-normal text-neutral-500 dark:text-neutral-400">
+                        {{ __('Click name to see more') }}</p>
                 </div>
-                <div class="flex gap-4">
-                    <x-secondary-button>Export</x-primary-button>
-                        <x-primary-button>Add</x-primary-button>
-                </div>
+                @include('posyandu.partials.search')
+                @include('posyandu.partials.age-filter')
+                <a>
+                    <x-secondary-button>{{ __('Export') }}</x-primary-button>
+                </a>
+                <a href="{{ route('dashboard.posyandu.create') }}">
+                    <x-primary-button>{{ __('Add') }}</x-primary-button>
+                </a>
             </div>
             <div class="w-full overflow-auto grow border rounded-md h-full">
                 @include('posyandu.partials.table')

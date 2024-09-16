@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     
     Route::prefix('posyandu')->name('.posyandu')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index']);
-        Route::get('/new', [MedicalRecordController::class, 'index'])->name('.new');
+        Route::get('/new', [MedicalRecordController::class, 'create'])->name('.create');
     });
 
     Route::prefix('user')->name('.users')->group(function () {
