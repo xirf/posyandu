@@ -2,11 +2,12 @@
 // app/Models/LabResult.php
 namespace App\Models;
 
+use App\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LabResult extends Model {
-    use HasFactory;
+    use HasFactory, Encryptable;
 
     protected $table = 'lab_results';
 
@@ -29,4 +30,3 @@ class LabResult extends Model {
         return $this->belongsTo(MedicalRecord::class, 'medical_record_id');
     }
 }
-

@@ -16,7 +16,7 @@ class MedicalRecordSeeder extends Seeder {
      */
     public function run() {
         // Create Patients
-        Patient::factory(10)->create()->each(function ($patient) {
+        Patient::factory(500)->create()->each(function ($patient) {
             // Create Medical Records for each Patient
             MedicalRecord::factory(2)->create(['patient_id' => $patient->id])->each(function ($medicalRecord) {
                 // Create Vital Statistics for each Medical Record

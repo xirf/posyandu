@@ -28,18 +28,13 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
         Route::post('/new', [NewsController::class, 'store'])->name('.store');
     });
 
-    Route::prefix('report')->name('.report')->group(function () {
-        Route::get('/', [MedicalRecordController::class, 'index']);
-        Route::get('/new', [MedicalRecordController::class, 'create'])->name('.new');
-        Route::post('/new', [MedicalRecordController::class, 'store'])->name('.store');
-    });
-
     Route::prefix('activity')->name('.activity')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index']);
     });
     
     Route::prefix('posyandu')->name('.posyandu')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index']);
+        Route::get('/new', [MedicalRecordController::class, 'index'])->name('.new');
     });
 
     Route::prefix('user')->name('.users')->group(function () {

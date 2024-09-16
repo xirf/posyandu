@@ -13,7 +13,7 @@
             position: sticky;
             top: 0;
             left: 0;
-            z-index: 1000;
+            z-index: 20;
         }
 
         tr:nth-child(even) {

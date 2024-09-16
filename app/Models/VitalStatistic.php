@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class VitalStatistic extends Model
 {
-    use HasFactory;
+    use HasFactory, Encryptable;
 
     protected $table = 'vital_statistics';
 

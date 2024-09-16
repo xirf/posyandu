@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Crypt;
+
 trait Encryptable {
     public function getAttribute($key) {
         $value = parent::getAttribute($key);
         if (in_array($key, $this->encryptable) && !empty($value)) {
-            $value = decrypt($value);
+            $value = Crypt::encryptString($value);
         }
 
         return $value;
@@ -14,7 +16,7 @@ trait Encryptable {
 
     public function setAttribute($key, $value) {
         if (in_array($key, $this->encryptable)) {
-            $value = encrypt($value);
+            $value = Crypt::encryptString($value);
         }
 
         return parent::setAttribute($key, $value);
@@ -24,7 +26,7 @@ trait Encryptable {
         $attributes = parent::attributesToArray();
         foreach ($this->encryptable as $key) {
             if (isset($attributes[$key])) {
-                $attributes[$key] = decrypt($attributes[$key]);
+                $attributes[$key] = Crypt::decryptString($attributes[$key]);
             }
         }
 

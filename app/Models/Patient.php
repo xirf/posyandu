@@ -13,24 +13,23 @@ class Patient extends Model {
 
     protected $fillable = [
         'name',
+        'gender',
         'nik',
         'birthdate',
-        'lace_of_birth',
-        'gender',
+        'place_of_birth',
         'rt',
         'rw',
         'dukuh',
         'age_group',
     ];
-
+    
     protected $encryptable = [
         'nik',
+        'birthdate',
+        'place_of_birth',
         'rt',
         'rw',
         'dukuh',
-        'birth_date',
-        'place_of_birth',
-        'address',
     ];
 
     protected $casts = [
@@ -49,4 +48,3 @@ class Patient extends Model {
         return $this->hasMany(MedicalRecord::class, 'patient_id');
     }
 }
-

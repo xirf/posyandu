@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 
 class MedicalRecord extends Model {
-    use HasFactory;
+    use HasFactory, Encryptable;
 
     protected $table = 'medical_records';
 
