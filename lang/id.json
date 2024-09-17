@@ -58,5 +58,10 @@
     "Detail": "Detail",
     "No data available": "Tidak ada data yang tersedia",
     "Try changing your filters to see the Patients": "Coba ubah filter Anda untuk melihat Pasien",
-    "Page": "Halaman"
+    "Page": "Halaman",
+    "Infant": "Bayi",
+    "Child": "Anak-anak",
+    "Teenager": "Remaja",
+    "Adult": "Dewasa",
+    "Elderly": "Lansia"
 }

@@ -1,36 +1,3 @@
-@pushOnce('styles')
-    <style>
-        /* make cols sticky */
-        thead>tr>th:first-child,
-        tbody>tr>td:first-child {
-            background-color: inherit;
-            position: sticky;
-            left: 0;
-            z-index: 10;
-        }
-
-        th,
-        td {
-            border: 1px solid #d2d6dc;
-        }
-
-        thead {
-            position: sticky;
-            top: 0;
-            left: 0;
-            z-index: 20;
-        }
-
-        tr:nth-child(even) {
-            background-color: white;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #f1f1f1;
-        }
-    </style>
-@endPushOnce
-
 <table class="table">
     <thead class="bg-[#f5f7f9]">
         <tr>

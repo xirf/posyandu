@@ -33,7 +33,6 @@
         <option value="male">{{ __('Male') }}</option>
         <option value="female">{{ __('Female') }}</option>
     </select>
-    <x-input-error :messages="$errors->createReport->get('gender')" class="mt-2" />
 </div>
 @php
     $fields = [
@@ -49,7 +48,10 @@
 @foreach ($fields as $field => $label)
     <div class="w-full">
         <x-input-label for="{{ $field }}" :value="__($label)" />
-        <x-text-input id="{{ $field }}" name="{{ $field }}" type="{{ in_array($field, ['rt', 'rw']) ? 'number' : 'text' }}" class="mt-1 block w-full"
+        <x-text-input 
+            id="{{ $field }}" name="{{ $field }}" 
+            type="{{ in_array($field, ['rt', 'rw']) ? 'number' : ($field == 'birth_date' ? 'date' : 'text') }}" 
+            class="mt-1 block w-full" 
             placeholder="{{ __($label) }}" />
         <x-input-error :messages="$errors->createReport->get($field)" class="mt-2" />
     </div>

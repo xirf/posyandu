@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\PatientApiController;
+use App\Http\Controllers\Api\PosyanduApiController;
 use App\Http\Controllers\Api\PosyanduTableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,4 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/posyandu/table', [PosyanduTableController::class, "index"])->name('posyandu.table');
     Route::get('/posyandu/table/search', [PosyanduTableController::class, "search"])->name('posyandu.table.search');
     Route::get('/patients', [PatientApiController::class, 'index'])->name('api.patients');
+
+    // Posyandu record routes
+    Route::post('/posyandu/store', [PosyanduApiController::class, "store"])->name('posyandu.store');
 });

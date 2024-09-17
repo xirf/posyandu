@@ -28,7 +28,9 @@ class PosyanduTableController extends Controller {
             });
         }
 
-        $medicalRecords = $medicalRecordsQuery->paginate($perPage ?? 50);
+        $medicalRecords = $medicalRecordsQuery
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage ?? 50);
 
         return response()->json($medicalRecords);
     }
@@ -44,7 +46,9 @@ class PosyanduTableController extends Controller {
         $medicalRecords = MedicalRecord::with(['patient', 'vitalStatistics', 'labResults'])
             ->whereHas('patient', function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
-            })->paginate($perPage ?? 50);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage ?? 50);
 
         return response()->json($medicalRecords);
     }
