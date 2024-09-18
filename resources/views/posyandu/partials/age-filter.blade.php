@@ -21,8 +21,8 @@
             <button
                 class="bg-neutral-50 px-4 text-left py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none"
                 role="menuitem"
-                @click="isOpen = false, selected = '{{ $menu }}', openedWithKeyboard = false, getTable('{{ strtolower($menu) }}')">
-                {{ $menu }}
+                @click="isOpen = false, selected = '{{ $menu[0] }}', openedWithKeyboard = false, getTable('{{ $menu[0] }}'), openedIndex = {{$loop->index}}">
+                {{ $menu[1] }}
             </button>
         @endforeach
     </div>

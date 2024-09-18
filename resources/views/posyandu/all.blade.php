@@ -2,7 +2,14 @@
 * Please don't mess with this file unless you know what you're doing.
 --}}
 @php
-    $menus = [__('All'), __('Infant'), __('Child'), __('Teenager'), __('Adult'), __('Elderly')];
+    $menus = [
+        ['all', __('All')],
+        ['infant', __('Infant')],
+        ['child', __('Child')],
+        ['teenager', __('Teenager')],
+        ['adult', __('Adult')],
+        ['elderly', __('Elderly')],
+    ];
 @endphp
 
 <x-app-layout>
@@ -10,15 +17,16 @@
         <div class="w-full grow flex flex-col h-full space-y-2" x-data="{
             activeData: [],
             isOpen: false,
+            openedIndex: 0,
             openedWithKeyboard: false,
-            selected: '{{ $menus[0] }}',
+            selected: '{{ $menus[0][0] }}',
             isLoading: true,
             sortBy: null,
             async getTable(ageGroup = 'all', link = null) {
                 this.isLoading = true;
                 try {
                     let endpoint = link ? link : '{{ route('posyandu.table') }}';
-                    let params = link ? {} : { ageGroup };
+                    let params = { ageGroup };
                     let response = await axios.get(endpoint, {
                         headers: {
                             'Content-Type': 'application/json',

@@ -13,28 +13,28 @@ class PosyanduTableController extends Controller {
     public function index(Request $request) {
         $ageGroup = $request->query('ageGroup');
         $perPage = $request->query('perPage');
-
+    
         if ($ageGroup && !in_array($ageGroup, ['toddler', 'infant', 'child', 'teenager', 'adult', 'elderly', 'all'])) {
             return response()->json([
                 'message' => 'Invalid age group',
             ], 400);
         }
-
+    
         $medicalRecordsQuery = MedicalRecord::with(['patient', 'vitalStatistics', 'labResults']);
-
+    
         if ($ageGroup && $ageGroup !== 'all') {
             $medicalRecordsQuery->whereHas('patient', function ($query) use ($ageGroup) {
                 $query->where('age_group', $ageGroup);
             });
         }
-
+    
         $medicalRecords = $medicalRecordsQuery
-        ->orderBy('created_at', 'desc')
-        ->paginate($perPage ?? 50);
-
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage ?? 50)
+            ->appends(['ageGroup' => $ageGroup]);
+    
         return response()->json($medicalRecords);
     }
-
     /**
      * Search for a specific resource.
      */
