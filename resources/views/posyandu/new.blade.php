@@ -14,7 +14,7 @@
             {{ __('Add New Record') }}
         </h2>
     </x-slot>
-    <form class="bg-white rounded-lg m-4 border shadow p-8 space-y-4" x-data="{ openedTab: '{{ $menus[0][0] }}', openedIndex: 0 }" id="addNewRecordForm">
+    <form class="bg-white max-w-7xl mx-auto rounded-lg m-4 border shadow p-8 space-y-4" x-data="{ openedTab: '{{ $menus[0][0] }}', openedIndex: 0 }" id="addNewRecordForm">
         <div class="w-full border-b">
             <div role="tablist" class="tabs grid grid-cols-5 w-fit relative">
                 @foreach ($menus as $menu)

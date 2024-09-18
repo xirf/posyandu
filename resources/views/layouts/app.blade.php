@@ -32,8 +32,8 @@
                 </label>
 
                 @isset($header)
-                    <header class="bg-white shadow">
-                        <div class="mx-auto py-2 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <header class="m-auto max-w-7xl w-full">
+                        <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
                     </header>

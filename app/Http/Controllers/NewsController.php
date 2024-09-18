@@ -13,10 +13,8 @@ class NewsController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $name = "news";
-        return view('news.all', [
-            'name' => $name
-        ]);
+
+        return view('news.all');
     }
 
     /**

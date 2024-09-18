@@ -2,7 +2,7 @@
     $fields = [
         'cholesterol' => 'Cholesterol',
         'hemoglobin' => 'Hemoglobin',
-        'gda' => 'Abdominal GDA',
+        'gda' => 'GDA',
     ];
 @endphp
 

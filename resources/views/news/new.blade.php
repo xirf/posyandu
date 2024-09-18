@@ -1,11 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center justify-between flex-wrap">
+        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
             {{ __('Add News') }}
         </h2>
+        <p>
+            {{__('Add new news, and share it with the world.')}}
+        </p>
     </x-slot>
 
-    <form class="py-12" action="{{ $submit_to }}" id="news-form" method="POST">
+    <form action="{{ $submit_to }}" id="news-form" method="POST">
         @csrf
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-8  items-start">
             <div class="grow space-y-4">
