@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\Activity;
 use App\Models\Tag;
 use App\Rules\NotEmptyContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class NewsController extends Controller {
+class ActivityController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
 
-        return view('news.all');
+        return view('activity.all');
     }
 
     /**
@@ -31,10 +31,10 @@ class NewsController extends Controller {
         });
 
 
-        return view('news.new', [
+        return view('activity.new', [
             'tags' => $allTags,
-            'name' => 'news',
-            'submit_to' => route('dashboard.news.store')
+            'name' => 'Activity',
+            'submit_to' => route('dashboard.activity.store')
         ]);
     }
 
@@ -43,7 +43,7 @@ class NewsController extends Controller {
      */
     public function store(Request $request) {
         // Validate the request data
-        
+
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -53,9 +53,10 @@ class NewsController extends Controller {
                 'string',
                 new NotEmptyContent
             ],
-            'published_at' => 'required|date',
+            'medias' => 'required|json',
             'status' => 'required|in:published,draft',
-            'tags' => 'array'
+            'tags' => 'array',
+            'published_at' => 'required|date'
         ]);
 
         $tags = $request->tags;
@@ -66,20 +67,21 @@ class NewsController extends Controller {
             $tagsIDs[] = $tag->id;
         }
 
-        $post = News::create([
+        $post = Activity::create([
             'user_id' => Auth::user()->id,
             'title' => $validatedData['title'],
-            'status' => $validatedData['status'] === 'published' ? News::STATUS_PUBLISHED : News::STATUS_DRAFT,
+            'status' => $validatedData['status'] === 'published' ? Activity::STATUS_PUBLISHED : Activity::STATUS_DRAFT,
             'slug' => str_replace(' ', '-', strtolower($validatedData['title'])),
             'thumbnail' => $validatedData['thumbnail'],
             'content' => $validatedData['about'],
+            'medias' => $validatedData['medias'],
             'published_at' => $validatedData['published_at'],
         ]);
 
 
         $post->tags()->attach($tagsIDs);
         // return to previous page with success message and data
-        return redirect()->back()->with('success', __('News created successfully'));
+        return redirect()->back()->with('success', __('Activity created successfully'));
     }
 
     /**

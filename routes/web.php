@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
@@ -19,8 +20,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')->group(function () {
     Route::view('/', 'dashboard');
-    Route::view('/activity', 'dashboard')->name('.activity');
-    Route::view('/user', 'dashboard')->name('.user');
 
     Route::prefix('news')->name('.news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);
@@ -29,7 +28,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     });
 
     Route::prefix('activity')->name('.activity')->group(function () {
-        Route::get('/', [MedicalRecordController::class, 'index']);
+        Route::get('/', [ActivityController::class, 'index']);
+        Route::get('/new', [ActivityController::class, 'create'])->name('.new');
+        Route::post('/new', [ActivityController::class, 'store'])->name('.store');
     });
     
     Route::prefix('posyandu')->name('.posyandu')->group(function () {

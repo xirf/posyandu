@@ -7,13 +7,13 @@
         <div class="flex items-center justify-between flex-wrap">
             <div>
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                    {{ __('News') }}
+                    {{ __('Acitvity') }}
                 </h2>
                 <p>
-                    {{ __('Create, edit, and manage the news.') }}
+                    {{ __('Create, edit, and manage the activity.') }}
                 </p>
             </div>
-            <a href="{{ route('dashboard.news.new') }}">
+            <a href="{{ route('dashboard.activity.new') }}">
                 <x-primary-button>{{ __('Add New') }}</x-primary-button>
             </a>
         </div>
@@ -25,7 +25,7 @@
         isSpinning: false,
         showModal: false,
         willDeletedItem: null,
-        getPosts(link = '{{ route('api.news.index') }}') {
+        getPosts(link = '{{ route('api.activity.index') }}') {
             this.isLoading = true;
             axios.get(link)
                 .then(response => {
@@ -40,7 +40,7 @@
         },
         deletePost(id) {
             this.isSpinning = true;
-            axios.delete(`{{ route('api.news.delete', '') }}/${id}`, {
+            axios.delete(`{{ route('api.activity.delete', '') }}/${id}`, {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector(`meta[name='csrf-token']`).getAttribute('content')
                     }
@@ -81,7 +81,7 @@
 
                             <tr x-show="!isLoading && posts.data.length == 0">
                                 <td colspan="6" class="text-center">
-                                    <x-empty :text="__('No news available')" :description="__('There is no news available.')">
+                                    <x-empty :text="__('No activity available')" :description="__('There is no activity available.')">
                                         <x-slot name="button">
                                             <x-primary-button @click="getPosts()">
                                                 {{ __('Refresh') }}

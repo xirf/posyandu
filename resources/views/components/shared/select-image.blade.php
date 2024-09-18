@@ -23,7 +23,6 @@
     x_saveToServer(file) {
         const fd = new FormData();
         fd.append('image', file);
-        console.log(this.x_endpoint)
         fetch(this.x_endpoint, {
                 method: 'POST',
                 headers: { 'X-CSRF-Token': this.x_csrf },

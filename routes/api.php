@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityApiController;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PatientApiController;
 use App\Http\Controllers\Api\PosyanduApiController;
 use App\Http\Controllers\Api\PosyanduTableController;
@@ -13,11 +15,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) { return $request->user(); });
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
     Route::get('/posyandu/table', [PosyanduTableController::class, "index"])->name('posyandu.table');
     Route::get('/posyandu/table/search', [PosyanduTableController::class, "search"])->name('posyandu.table.search');
     Route::get('/patients', [PatientApiController::class, 'index'])->name('api.patients');
 
     // Posyandu record routes
     Route::post('/posyandu/store', [PosyanduApiController::class, "store"])->name('posyandu.store');
+
+    // Delete route
+    Route::delete('/news/delete/{id}', [NewsApiController::class, "delete"])->name('api.news.delete');
+    Route::delete('/activity/delete/{id}', [ActivityApiController::class, "delete"])->name('api.activity.delete');
 });
+
+Route::get('/news/{', [NewsApiController::class, "index"])->name('api.news.index');
+Route::get('/activity/{', [ActivityApiController::class, "index"])->name('api.activity.index');

@@ -63,5 +63,10 @@
     "Child": "Anak-anak",
     "Teenager": "Remaja",
     "Adult": "Dewasa",
-    "Elderly": "Lansia"
+    "Elderly": "Lansia",
+    "Add Patient": "Tambah Pasien",
+    "Published": "Dipublikasikan",
+    "Draft": "Draf",
+    "Scheduled": "Dijadwalkan",
+    "Create, edit, and manage the news.": "Buat, edit, dan kelola berita."
 }
