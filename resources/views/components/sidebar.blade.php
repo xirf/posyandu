@@ -50,4 +50,28 @@
             </li>
         @endforeach
     </ul>
+    <div class="shrink-0 flex flex-col gap-4 p-4">
+        <div
+            class="flex items-center gap-4 py-2 px-4 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-md">
+            <img src="{{ auth()->user()->picture }}" alt="{{ auth()->user()->name }}"
+                class="w-10 h-10 rounded-full object-cover overflow-hidden border shrink-0">
+            <span class="font-bold overflow-hidden line-clamp-2">{{ auth()->user()->name }}asdad asd a das d</span>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <a href="{{ route('profile.edit') }}">
+                <x-secondary-button class="w-full justify-center">
+                    <x-heroicon-o-pencil-square width="24" height="24" />
+                </x-secondary-button>
+            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-secondary-button class="w-full flex justify-center"
+                    onclick="event.preventDefault();
+                        this.closest('form').submit();">
+                    <x-heroicon-o-arrow-right-on-rectangle width="24" height="24" />
+                </x-secondary-button>
+                </a>
+            </form>
+        </div>
+    </div>
 </div>
