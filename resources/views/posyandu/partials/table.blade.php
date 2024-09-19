@@ -3,6 +3,7 @@
         <tr>
             <th @click="sortBy('patient.name')" class="w-30 cursor-pointer"><span>{{ __('Patient') }}</span></th>
             <th @click="sortBy('patient.dukuh')" class="w-30 cursor-pointer"><span>{{ __('Address') }}</span></th>
+            <th @click="sortBy('patient.age_group')" class="w-30 cursor-pointer"><span>{{ __('Age Group') }}</span></th>
             <th @click="sortBy('vital_statistics.height')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Height') }}">{{ __('TB') }}</span> </th>
             <th @click="sortBy('vital_statistics.weight')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Weight') }}">{{ __('BB') }}</span> </th>
             <th @click="sortBy('vital_statistics.head_circumference')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</span> </th>
@@ -23,16 +24,17 @@
             <tr class="hover:bg-cyan-50" x-show="!isLoading && !data.hiddenBySearch">
                 <td> <div class="grid"> <div :class="{ 'text-blue-500': data.patient.gender === 'male', 'text-pink-500': data.patient.gender === 'female', }" class="font-bold w-32 truncate text-sm" x-text="data.patient.name"></div> </div> <div x-text="`${data.patient.place_of_birth} ${data.patient.birthdate}`"></div> </div> </td>
                 <td> <div class="grid"> <div x-text="data.patient.dukuh"></div> <div class="text-gray-400" x-text="`RT ${data.patient.rt}`"></div> <div class="text-gray-400" x-text="`RW ${data.patient.rw}`"></div> </div> </td>
+                <td x-text="ages[data.patient.age_group]"></td>
                 <td x-text="data.vital_statistics.height"></td>
                 <td x-text="data.vital_statistics.weight"></td>
                 <td x-text="data.vital_statistics.head_circumference"></td>
                 <td x-text="data.vital_statistics.arm_circumference"></td>
                 <td x-text="data.vital_statistics.abdominal_circumference"></td>
-                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results.cholesterol"></td>
-                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results.hemoglobin"></td>
-                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results.gda"></td>
-                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results.ua"></td>
-                <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.family_planning ==  0 ? '{{ __('No') }}' : '{{ __('Yes') }}'" :class="{ 'badge-success': data.family_planning == 1, 'badge-primary': data.family_planning == 0 }" class="badge badge-outline"> </div> </td>
+                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.cholesterol"></td>
+                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.hemoglobin"></td>
+                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.gda"></td>
+                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.ua"></td>
+                <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.family_planning ==  0 ? '{{ __('No') }}' : '{{ __('Yes') }}'" :class="{ 'badge-success': data.family_planning == 1, 'badge-neutral': data.family_planning == 0 }" class="badge badge-outline"> </div> </td>
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.complaints" class="line-clamp-4"></div> </td> 
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.diagnosis" class="line-clamp-4"></div> </td>
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.diseases" class="line-clamp-4"></div> </td>

@@ -20,6 +20,14 @@
             openedIndex: 0,
             openedWithKeyboard: false,
             selected: '{{ $menus[0][0] }}',
+            ages: {
+                'all': '{{ __('All') }}',
+                'infant': '{{ __('Infant') }}',
+                'child': '{{ __('Child') }}',
+                'teenager': '{{ __('Teenager') }}',
+                'adult': '{{ __('Adult') }}',
+                'elderly': '{{ __('Elderly') }}',
+            },
             isLoading: true,
             sortBy: null,
             async getTable(ageGroup = 'all', link = null) {

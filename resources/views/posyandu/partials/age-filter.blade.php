@@ -8,7 +8,7 @@
         :class="isOpen || openedWithKeyboard ? 'text-neutral-900 dark:text-white' :
             'text-neutral-600 dark:text-neutral-300'"
         :aria-expanded="isOpen || openedWithKeyboard">
-        <span x-text="selected"></span>
+        <span x-text="ages[selected]"></span>
         <x-heroicon-m-chevron-down class="size-4 rotate-0" />
     </button>
     <!-- Dropdown Menu -->
