@@ -23,7 +23,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-[#fcfdfd]">
         <x-navbar />
         <main class="grow">
             {{ $slot }}
