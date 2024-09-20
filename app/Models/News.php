@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\ExcerptsQuill;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model {
+    use ExcerptsQuill;
+
     protected $fillable = [
         'user_id',
         'title',
