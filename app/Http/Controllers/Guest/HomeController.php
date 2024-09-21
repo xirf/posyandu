@@ -26,14 +26,20 @@ class HomeController extends Controller {
      * Display the resource.
      */
     public function show() {
-        $news = News::orderBy('created_at', 'desc')->limit(3)->get();
-        $activities = Activity::orderBy('created_at', 'desc')->limit(3)->get();
-
-        $news->map(function ($item) {
-            $item->excerpt = $item->getExcerptAttribute($item->content);
-            return $item;
+        $news = [];
+        News::orderBy('created_at', 'desc')->chunk(100, function ($newsChunk) use (&$news) {
+            foreach ($newsChunk as $item) {
+                $news[] = $item;
+            }
         });
-
+            
+        $activities = [];
+        Activity::orderBy('created_at', 'desc')->chunk(100, function ($activitiesChunk) use (&$activities) {
+            foreach ($activitiesChunk as $item) {
+                $activities[] = $item;
+            }
+        });
+    
         return view('home.home', compact('news', 'activities'));
     }
 
