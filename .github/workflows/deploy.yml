@@ -41,7 +41,7 @@ jobs:
         run: touch .env
 
       - name: Fill .env file
-        run: echo {{ secrets.ENV_FILE }} > .env
+        run: echo ${{ secrets.ENV_FILE }} > .env
 
       - name: Generate application key
         run: php artisan key:generate
