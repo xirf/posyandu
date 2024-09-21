@@ -23,13 +23,17 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-[#fcfdfd]">
-        <x-navbar />
-        <main class="grow">
+    <div class="min-h-screen bg-[#fcfdfd] overflow-x-hidden w-screen ">
+        <div class="relative z-50">
+            <x-navbar />
+        </div>
+        <main class="grow relative z-0">
             {{ $slot }}
         </main>
     </div>
-
+    <footer class="min-h-32 overflow-x-hidden w-screen ">
+        <x-footer />
+    </footer>
     <script src="/js/notify.js"></script>
     <script>
         var notyf = new Notyf({

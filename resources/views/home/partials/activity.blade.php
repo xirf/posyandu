@@ -1,4 +1,4 @@
-<div class="w-full px-32 py-8">
+<div class="w-full px-8 lg:px-32 py-8">
     <div x-data="{
         slides: [
             @foreach ($activities as $activity)
@@ -65,17 +65,16 @@
         }
     }" class="relative w-full space-y-4 max-w-7xl mx-auto">
 
-        <div class="relative min-h-[50svh] w-full rounded-xl bg-cyan-500"
+        <div class="relative min-h-[80svh] lg:min-h-[50svh] w-full rounded-xl bg-cyan-500"
             x-on:touchstart="handleTouchStart($event)" x-on:touchmove="handleTouchMove($event)"
             x-on:touchend="handleTouchEnd()">
             <template x-for="(slide, index) in slides">
-                <div x-show="currentSlideIndex == index + 1" class="absolute inset-0 flex flex-col items-center gap-8 p-8"
+                <div x-show="currentSlideIndex == index + 1" class="inset-0 flex flex-col items-center gap-8 p-6 lg:p-8"
                     x-transition.opacity.duration.700ms>
                     <h3 class="text-white font-black text-4xl shrink-0">Aktivitas Terbaru</h3>
                     <div class="w-20 h-1 bg-white rounded-full shrink-0"></div>
-                    <div class="grid grid-cols-2 gap-8 grow-0 overflow-hidden">
-                        <img x-bind:src="slide.image" alt=""
-                            class="aspect-video h-full object-cover rounded-lg">
+                    <div class="grid lg:grid-cols-2 gap-8 grow-0">
+                        <img x-bind:src="slide.image" class="aspect-video h-full object-cover rounded-lg">
                         <div class="h-full flex flex-col gap-4">
                             <h1 x-text="slide.title"
                                 class="text-white line-clamp-2 truncate text-2xl font-black capitalize"></h1>

@@ -1,7 +1,7 @@
 <div class="w-full max-w-7xl flex flex-col items-center mx-auto gap-8 p-8">
     <h1 class="text-4xl font-black text-center">Berita Terbaru</h1>
     <div class="w-20 h-1 bg-black rounded-full"></div>
-    <div class="w-full grid grid-cols-3 gap-8">
+    <div class="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach ($news as $item)
             <div class="bg-white shadow-cyan-200 rounded-xl overflow-hidden flex flex-col border border-gray-100 relative z-10"
                 style="box-shadow: 10px 40px 50px 0 #e5f6f56b">

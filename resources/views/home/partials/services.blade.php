@@ -33,7 +33,7 @@
     ];
 @endphp
 
-<div class="relative h-fit">
+<div class="relative h-fit p-8">
     <div class="max-w-7xl w-full text-center mx-auto flex flex-col items-center gap-8">
         <h1 class="text-4xl font-black">Daftar Layanan</h1>
         <div class="w-20 h-1 bg-black rounded-full"></div>
@@ -42,7 +42,7 @@
             kesejahteraan masyarakat</p>
     </div>
     <div class="w-full relative mt-20">
-        <div class="max-w-7xl w-full mx-auto grid grid-cols-3 gap-8 relative">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
             <div class="absolute -top-20 -left-52 h-full w-auto">
                 <img src="/images/blob2.svg" alt="" class="h-full w-auto scale-[1.7]">
             </div>
