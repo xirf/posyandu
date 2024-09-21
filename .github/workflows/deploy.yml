@@ -36,9 +36,16 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader --no-dev
+    
+      - name: Create .env file
+        run: touch .env
+
+      - name: Fill .env file
+        run: echo {{ secrets.ENV_FILE }} > .env
 
       - name: Generate application key
         run: php artisan key:generate
+
 
       - name: Upload to FTP server
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
