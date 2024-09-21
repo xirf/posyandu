@@ -53,7 +53,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./laravel/
+          local-dir: ./
+          server-dir: ./laravel/
 
       - name: Clear Laravel cache
         run: php artisan config:cache
