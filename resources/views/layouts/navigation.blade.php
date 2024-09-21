@@ -1,7 +1,11 @@
 @php
-    $menus = [[__('Home'), 'home'], [__('News'), 'home'], [__('Activity'), 'home'], [__('About'), 'home']];
+    $menus = [
+        [__('Home'), 'home'], 
+        [__('News'), 'news.index'], 
+        [__('Activity'), 'activity.index'], 
+        [__('About'), 'home']
+    ];
 @endphp
-
 <nav x-data="{ open: false }" class="border-b border-gray-10">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
