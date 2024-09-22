@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
+import typography from '@tailwindcss/typography';
 import forms from '@tailwindcss/forms';
 import daisyui from 'daisyui';
 
@@ -18,7 +19,7 @@ export default {
         },
     },
 
-    plugins: [ forms, daisyui ],
+    plugins: [ forms, daisyui, typography ],
     daisyui: {
         styled: true,
         themes: [

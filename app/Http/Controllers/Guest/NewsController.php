@@ -25,13 +25,27 @@ class NewsController extends Controller {
      * Display the resource.
      */
     public function showAll() {
-        $news = News::latest()->with('user')->where('status', News::STATUS_PUBLISHED)->paginate(11);
+        $news = News::latest()->with('user', 'tags')->where('status', News::STATUS_PUBLISHED)->paginate(11);
 
         return view('home.news', compact('news'));
     }
 
-    public function show() {
-        //
+    public function show(String $slug) {
+        $news = News::where('slug', $slug)->with('user')->firstOrFail();
+
+        if ($news->status !== News::STATUS_PUBLISHED || !$news) {
+            abort(404);
+        }
+
+        $recomedations = News::with('user')
+            ->where('status', News::STATUS_PUBLISHED)
+            ->where('id', '!=', $news->id)
+            ->inRandomOrder()
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        return view('news.show', compact('news', 'recomedations'));
     }
 
     /**
