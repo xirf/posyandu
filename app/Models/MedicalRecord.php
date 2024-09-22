@@ -19,6 +19,8 @@ class MedicalRecord extends Model {
         'medication',
         'diseases',
         'family_planning',
+        'created_at',
+        'updated_at',
     ];
 
     protected $encryptable = [

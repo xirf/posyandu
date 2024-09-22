@@ -1,20 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
+    <div class="p-8">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
         <p>
-            {{__('General information about the activity')}}
+            {{ __('General information about the activity') }}
         </p>
-    </x-slot>
-
-    <div class="py-0">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    </div>
+    <div class="px-8 flex flex-row gap-8">
+        <div class="mx-auto grow flex gap-8 w-full">
+            @include('dashboard.partials.chart')
+            @include('dashboard.partials.news')
+        </div>
+        <div class="shrink-0">
+            @include('dashboard.partials.calendar')
         </div>
     </div>
 </x-app-layout>

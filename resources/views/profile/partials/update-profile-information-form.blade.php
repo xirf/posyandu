@@ -66,7 +66,7 @@
 
         <div>
             <x-input-label for="picture" :value="__('Bio')" />
-            <x-textarea id="bio" name="bio" class="mt-1 block w-full"
+            <x-textarea id="bio" name="bio" class="mt-1 block w-full" :placeholder="__('Tell us about yourself')"
                 :value="$user->bio">{{ old('bio', $user->bio) }}</x-textarea>
             <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
