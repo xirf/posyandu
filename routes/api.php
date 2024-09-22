@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PatientApiController;
 use App\Http\Controllers\Api\PosyanduApiController;
 use App\Http\Controllers\Api\PosyanduTableController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/activity/delete/{id}', [ActivityApiController::class, "delete"])->name('api.activity.delete');
 });
 
-Route::get('/news/{', [NewsApiController::class, "index"])->name('api.news.index');
-Route::get('/activity/{', [ActivityApiController::class, "index"])->name('api.activity.index');
+Route::get('/news', [NewsApiController::class, "index"])->name('api.news.index');
+Route::get('/activity', [ActivityApiController::class, "index"])->name('api.activity.index');
+Route::get('/schedule', [ScheduleController::class, "getAll"])->name('api.schedule');

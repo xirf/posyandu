@@ -18,6 +18,6 @@ class Schedule extends Model {
 
     protected $casts = [
         'date' => 'date',
-        'time' => 'time',
+        'time' => 'string', // Ensure 'time' is cast to string if it's stored as a string
     ];
 }

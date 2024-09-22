@@ -6,6 +6,7 @@ use App\Http\Controllers\Guest\SiteInfoController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -45,6 +46,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::prefix('site-info')->name('.site-info')->group(function () {
         Route::get('/', [SiteInfoController::class, 'index']);
     });
+
+    Route::post('/schedule/add', [ScheduleController::class, 'store'])->name('.schedule.add');
+    Route::post('/schedule/delete/{id}', [ScheduleController::class, 'destroy'])->name('.schedule.delete');
 });
 
 require __DIR__ . '/auth.php';

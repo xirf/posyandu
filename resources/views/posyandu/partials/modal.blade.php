@@ -24,20 +24,20 @@
 
             <div class="mt-5 w-full">
                 <table class="table">
-                    <tr>
-                        <td data-tip="{{ __('Patient') }}">{{ __('Patient') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Patient') }}</td>
                         <td>
                             <div class="flex gap-2 flex-wrap">
                                 <div :class="{ 'text-blue-500': selectedPatient.patient.gender === 'male', 'text-pink-500': selectedPatient.patient.gender === 'female', }" class="font-bold w-32 truncate text-sm" x-text="selectedPatient.patient.name"></div>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>{{__('Birth Place and Date')}}</td>
+                    <tr class="hover">
+                        <td>{{ __('Birth Place and Date') }}</td>
                         <td><div x-text="`${selectedPatient.patient.place_of_birth} ${selectedPatient.patient.birthdate}`"></div></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Address') }}">{{ __('Address') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Address') }}</td>
                         <td>
                             <div class="flex flex-wrap gap-2">
                                 <div x-text="selectedPatient.patient.dukuh"></div>
@@ -46,72 +46,72 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Age Group') }}">{{ __('Age Group') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Age Group') }}</td>
                         <td x-text="ages[selectedPatient.patient.age_group]"></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Height') }}">{{ __('TB') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Height') }}</td>
                         <td x-text="selectedPatient.vital_statistics.height"></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Weight') }}">{{ __('BB') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Weight') }}</td>
                         <td x-text="selectedPatient.vital_statistics.weight"></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Head Circumference') }}">{{ __('LK') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Head Circumference') }}</td>
                         <td x-text="selectedPatient.vital_statistics.head_circumference"></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Upper Arm Circumference') }}">{{ __('LILA') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Upper Arm Circumference') }}</td>
                         <td x-text="selectedPatient.vital_statistics.arm_circumference"></td>
                     </tr>
-                    <tr>
-                        <td data-tip="{{ __('Abdominal Circumference') }}">{{ __('LP') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Abdominal Circumference') }}</td>
                         <td x-text="selectedPatient.vital_statistics.abdominal_circumference"></td>
                     </tr>
-                    <tr x-show="openedIndex > 2 || openedIndex == 0">
-                        <td data-tip="{{ __('Cholesterol') }}">{{ __('Cholesterol') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Cholesterol') }}</td>
                         <td x-text="selectedPatient.lab_results?.cholesterol"></td>
                     </tr>
-                    <tr x-show="openedIndex > 2 || openedIndex == 0">
-                        <td data-tip="{{ __('Hemoglobin') }}">{{ __('HB') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Hemoglobin') }}</td>
                         <td x-text="selectedPatient.lab_results?.hemoglobin"></td>
                     </tr>
-                    <tr x-show="openedIndex > 2 || openedIndex == 0">
-                        <td data-tip="{{ __('Glucose Level') }}">{{ __('GDA') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Glucose Level') }}</td>
                         <td x-text="selectedPatient.lab_results?.gda"></td>
                     </tr>
-                    <tr x-show="openedIndex > 2 || openedIndex == 0">
-                        <td data-tip="{{ __('Urine Test') }}">{{ __('UA') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Urine Test') }}</td>
                         <td x-text="selectedPatient.lab_results?.ua"></td>
                     </tr>
-                    <tr x-show="openedIndex > 3 || openedIndex == 0">
-                        <td data-tip="{{ __('Family Planning') }}">{{ __('KB') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Family Planning') }}</td>
                         <td>
                             <div x-text="selectedPatient.family_planning == 0 ? '{{ __('No') }}' : '{{ __('Yes') }}'" :class="{ 'badge-success': selectedPatient.family_planning == 1, 'badge-neutral': selectedPatient.family_planning == 0 }" class="badge badge-outline"></div>
                         </td>
                     </tr>
-                    <tr x-show="openedIndex > 3 || openedIndex == 0">
-                        <td data-tip="{{ __('Complaints') }}">{{ __('Complaints') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Complaints') }}</td>
                         <td>
                             <div x-text="selectedPatient.complaints" class="line-clamp-4"></div>
                         </td>
                     </tr>
-                    <tr x-show="openedIndex > 3 || openedIndex == 0">
-                        <td data-tip="{{ __('Diagnosic') }}">{{ __('Diagnosic') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Diagnosic') }}</td>
                         <td>
                             <div x-text="selectedPatient.diagnosis" class="line-clamp-4"></div>
                         </td>
                     </tr>
-                    <tr x-show="openedIndex > 3 || openedIndex == 0">
-                        <td data-tip="{{ __('Disease') }}">{{ __('Disease') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Disease') }}</td>
                         <td>
                             <div x-text="selectedPatient.diseases" class="line-clamp-4"></div>
                         </td>
                     </tr>
-                    <tr x-show="openedIndex > 3 || openedIndex == 0">
-                        <td data-tip="{{ __('Medication') }}">{{ __('Medication') }}</td>
+                    <tr class="hover">
+                        <td>{{ __('Medication') }}</td>
                         <td>
                             <div x-text="selectedPatient.medication" class="line-clamp-4"></div>
                         </td>
