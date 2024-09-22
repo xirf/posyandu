@@ -1,13 +1,13 @@
 <x-home-layout>
-    <div class="w-screen space-y-12 py-14">
+    <div class="w-screen space-y-8 lg:space-y-12 p-8 lg:py-14">
         <a href="{{ route('news.show', $news[0]->slug) }}">
-            <div class="w-full max-w-7xl mx-auto p-8 grid grid-cols-2 gap-8 rounded-xl bg-white border">
+            <div class="w-full max-w-7xl mx-auto p-8 grid  md:grid-cols-2 gap-8 rounded-xl bg-white border">
                 <img src="{{ $news[0]->thumbnail }}" alt="{{ $news[0]->title }}"
                     class="h-full aspect-video object-cover rounded-xl border">
                 <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 mb-2">
                         <img src="{{ $news[0]->user->picture }}" alt="{{ $news[0]->user->name }}"
-                            class="h-8 w-8 object-cover rounded-full">
+                            class="w-6 h-6 md:h-8 md:w-8 object-cover rounded-full">
                         <div class="font-medium text-sm text-gray-500">{{ $news[0]->user->name }} &middot;
                             {{ $news[0]->getDiff() }}</div>
                     </div>
@@ -19,7 +19,7 @@
         </a>
         <div class="mx-auto w-full max-w-7xl flex flex-col">
             <h2 class="text-2xl font-bold text-gray-800">Berita Terbaru</h2>
-            <div class="grid grid-cols-3 gap-8 mt-8">
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
                 @foreach ($news->skip(1) as $item)
                     <div class="bg-white shadow-cyan-200 rounded-xl overflow-hidden flex flex-col border border-gray-100 relative z-10"
                         style="box-shadow: 10px 40px 50px 0 #e5f6f56b">
