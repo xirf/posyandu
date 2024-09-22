@@ -9,10 +9,17 @@
         <div class="hidden lg:block">
 
         </div>
-        
+
         <div class="grid gap-4 h-fit">
             <h1 class="text-3xl font-black"> Hubungi Kami </h1>
             <a href="mailto:hai@posyandubareng.com">hai@posyandubareng.com</a>
+            <br />
+            <h1 class="text-3xl font-black">Tenaga Kesehatan</h1>
+            <a href="{{ route('login') }}">
+                <x-secondary-button>
+                    {{ __('Login') }}
+                </x-secondary-button>
+            </a>
         </div>
         <img src="/images/grids.svg" alt="" class="absolute -top-16 -right-24 h-32 w-32">
     </div>
