@@ -13,7 +13,7 @@ class Schedule extends Model {
     protected $fillable = [
         'date',
         'time',
-        'name',
+        'location',
     ];
 
     protected $casts = [

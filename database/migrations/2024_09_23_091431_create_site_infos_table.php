@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('site_info', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('logo');
+            $table->string('name')->optional();
+            $table->json('description')->optional();
+            $table->string('address')->optional();
+            $table->string('phone')->optional();
+            $table->string('email')->optional();
             $table->timestamps();
         });
 
@@ -26,7 +25,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->time('time');
-            $table->string('name');
+            $table->string('location');
             $table->timestamps();
         });
     }

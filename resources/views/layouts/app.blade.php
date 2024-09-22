@@ -56,7 +56,7 @@
 
     <script src="/js/notify.js"></script>
     <script>
-        var notyf = new Notyf({
+        const notyf = new Notyf({
             position: {
                 x: 'right',
                 y: 'top'

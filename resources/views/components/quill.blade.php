@@ -107,13 +107,16 @@
         if (html === '<p><br></p>') html = ''
         content = html;
     });
-    content = (quill.root.innerHTML === '<p><br></p>') ?
-        '' :
-        quill.root.innerHTML;
+
+    if (document.getElementById('quill-initial-data')) {
+        quill.setContents(JSON.parse(document.getElementById('quill-initial-data').textContent.replaceAll('\n', '')));
+    }
+
+    content = (quill.root.innerHTML === '<p><br></p>') ? '' : quill.root.innerHTML;
 });
 
 document.querySelector('#{{ $formId }}').addEventListener('formdata', (event) => {
-    event.formData.append('about', JSON.stringify(quill.getContents().ops));
+    event.formData.append('{{$name ?? 'about'}}', JSON.stringify(quill.getContents().ops));
 });" x-cloak>
 
     @if ($label ?? null)

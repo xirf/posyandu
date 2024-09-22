@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class ProfileController extends Controller {
             $request->user()->email_verified_at = null;
         }
 
-        
+
         if ($request->file('picture')) {
             $filename = uniqid() . '.' . $request->file('picture')->getClientOriginalExtension();
             Storage::disk('local')->putFileAs('profile-pictures', $request->file('picture'), $filename);
@@ -50,6 +51,21 @@ class ProfileController extends Controller {
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse {
+        if (Auth::user()->id == 1) {
+            $request->validateWithBag('userDeletion', [
+                'deletedId' => ['required'],
+            ]);
+
+            $user = User::find($request->input('deletedId'));
+
+            if ($user->id == 1) {
+                return Redirect::route('profile.edit')->with('status', 'cannot-delete-admin');
+            }
+
+            $user->delete();
+            return Redirect::back()->with('status', 'user-deleted');
+        }
+
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);

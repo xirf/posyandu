@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SiteInfo extends Model
-{
+class SiteInfo extends Model {
     use HasFactory;
 
     protected $table = 'site_info';
@@ -17,6 +16,9 @@ class SiteInfo extends Model
         'address',
         'phone',
         'email',
-        'logo',
+    ];
+
+    protected $cast = [
+        'description' => 'string'
     ];
 }
