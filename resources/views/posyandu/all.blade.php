@@ -20,6 +20,7 @@
         openedIndex: 0,
         openedWithKeyboard: false,
         selected: '{{ $menus[0][0] }}',
+        selectedPatient: null,
         ages: {
             'all': '{{ __('All') }}',
             'infant': '{{ __('Infant') }}',

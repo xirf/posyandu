@@ -22,7 +22,7 @@
     <tbody>
         <template x-for="data in activeData.data" :key="data.id">
             <tr class="hover:bg-cyan-50" x-show="!isLoading && !data.hiddenBySearch"
-            @click="modelOpen=true" 
+            @click="modelOpen=true; selectedPatient=data"
             >
                 <td> <div class="grid" > <div :class="{ 'text-blue-500': data.patient.gender === 'male', 'text-pink-500': data.patient.gender === 'female', }" class="font-bold w-32 truncate text-sm" x-text="data.patient.name"></div> </div> <div x-text="`${data.patient.place_of_birth} ${data.patient.birthdate}`"></div> </div> </td>
                 <td> <div class="grid"> <div x-text="data.patient.dukuh"></div> <div class="text-gray-400" x-text="`RT ${data.patient.rt}`"></div> <div class="text-gray-400" x-text="`RW ${data.patient.rw}`"></div> </div> </td>

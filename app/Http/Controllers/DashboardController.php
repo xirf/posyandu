@@ -47,7 +47,7 @@ class DashboardController extends Controller {
             ->get()
             ->keyBy('month');
 
-        $news = News::with('user:id,name')->select('title', 'published_at', 'user_id' )->limit(3)->get();
+        $news = News::with('user:id,name')->select('title','slug', 'published_at', 'user_id' )->limit(3)->get();
 
         // Pass the data to the view
         return view('dashboard.index', compact('currentYearPosyandus', 'lastYearPosyandus', 'news'));
