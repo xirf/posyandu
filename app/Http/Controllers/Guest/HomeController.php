@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\News;
+use App\Models\SiteInfo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
@@ -41,6 +42,11 @@ class HomeController extends Controller {
         });
     
         return view('home.home', compact('news', 'activities'));
+    }
+
+    public function about(){
+        $about = SiteInfo::select('description')->first();
+        return view('home.about', compact('about'));
     }
 
     /**

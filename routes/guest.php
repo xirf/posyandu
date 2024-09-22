@@ -12,3 +12,5 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 Route::get('/activity', [ActivityController::class, 'showAll'])->name('activity.index');
 Route::get('/activity/{slug}', [ActivityController::class, 'show'])->name('activity.show');
+
+Route::get('/about', [HomeController::class, 'about'])->name('about');

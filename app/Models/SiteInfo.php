@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Rules\NotEmptyContent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use nadar\quill\Lexer;
 
 class SiteInfo extends Model {
     use HasFactory;
@@ -18,7 +20,12 @@ class SiteInfo extends Model {
         'email',
     ];
 
-    protected $cast = [
-        'description' => 'string'
-    ];
+    public function render(): string {
+        $validator = new NotEmptyContent();
+        if($validator->validate($this->description, null, function(){})) {
+            return '';
+        }
+        $lexer = new Lexer($this->description);
+        return $lexer->render();
+    }
 }

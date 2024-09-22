@@ -1,9 +1,9 @@
 @php
     $menus = [
-        [__('Home'), 'home'], 
-        [__('News'), 'news.index'], 
-        [__('Activity'), 'activity.index'], 
-        [__('About'), 'home']
+        [__('Home'), 'home'],
+        [__('News'), 'news.index'],
+        [__('Activity'), 'activity.index'],
+        [__('About'), 'about'],
     ];
 @endphp
 <nav x-data="{ open: false }" class="border-b border-gray-10">
@@ -24,9 +24,11 @@
                         {{ $item[0] }}
                     </x-nav-link>
                 @endforeach
-                <x-primary-button href="#" class="h-fit ml-4">
-                    {{ __('Contact Us') }}
-                </x-primary-button>
+                @if ($siteInfo->phone)
+                    <x-primary-button href="tel:{{ preg_replace('/\D/', '', $siteInfo->phone) }}" class="h-fit ml-4">
+                        {{ __('Contact Us') }}
+                    </x-primary-button>
+                @endif
             </div>
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -53,6 +55,12 @@
                     {{ $item[0] }}
                 </x-responsive-nav-link>
             @endforeach
+
+            @if ($siteInfo->phone)
+                <x-primary-button href="tel:{{ preg_replace('/\D/', '', $siteInfo->phone) }}" class="h-fit ml-4">
+                    {{ __('Contact Us') }}
+                </x-primary-button>
+            @endif
         </div>
     </div>
 </nav>

@@ -2,7 +2,11 @@
     <div class="w-screen space-y-32">
         @include('home.partials.hero')
         @include('home.partials.services')
-        @include('home.partials.activity')
-        @include('home.partials.news')
+        @if ($activities)
+            @include('home.partials.activity')
+        @endif
+        @if ($news)
+            @include('home.partials.news')
+        @endif
     </div>
 </x-home-layout>

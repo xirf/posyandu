@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(): void {
-        View::composer('home.layout', function ($view) {
+        View::composer('*', function ($view) {
             $siteInfo = Cache::remember('siteInfo', 120, function () {
                 return SiteInfo::select(
                     'name',
