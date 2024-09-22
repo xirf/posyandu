@@ -40,7 +40,7 @@
                 </table>
             </div>
         </div>
-        <div class="md:py-8 py-5 md:px-8 px-5 dark:bg-gray-700 bg-gray-50 rounded-b border-t" id="scheduleTarget">
+        <div class="md:py-8 py-5 md:px-8 px-5 grid gap-4 bg-gray-50 rounded-b border-t" id="scheduleTarget">
 
         </div>
     </div>
@@ -89,12 +89,38 @@
             </div>
         </form>
     </x-modal>
+
+
+    <x-modal name="confirm-deletion" :show="$errors->deleteSchedule->isNotEmpty()" focusable>
+        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+            @csrf
+            @method('delete')
+
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Are you sure you want to delete this schedule?') }}
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600">
+                {{ __('This action is not reversible') }}
+            </p>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ms-3">
+                    {{ __('Delete') }}
+                </x-danger-button>
+            </div>
+        </form>
+    </x-modal>
 </div>
 
 <template id="scheduleTemplate">
     <div class="flex gap-4 items-center">
         <div>
-            <div class="p-2 bg-red-500 rounded-md text-white">
+            <div class="p-2 bg-red-500/25 rounded-md text-red-500 cursor-pointer" id="deleteButton">
                 <x-heroicon-o-trash class="w-4 h-4" />
             </div>
         </div>
@@ -112,7 +138,7 @@
         const currentMonthElement = document.getElementById('currentMonth');
         const calendarDaysElement = document.getElementById('calendarDays');
         const scheduleTemplate = document.getElementById('scheduleTemplate');
-        const scheduleTarget = document.getElementById('scheduleTarget')
+        const scheduleTarget = document.getElementById('scheduleTarget');
 
         const options = {
             year: 'numeric',
@@ -127,36 +153,36 @@
                 const month = date.getMonth();
                 const year = date.getFullYear();
 
-
-                // Set the current month and year
                 currentMonthElement.textContent = date.toLocaleString('default', {
                     month: 'long',
                     year: 'numeric'
                 });
 
-                // Get the first day of the month (adjusted to start from Sunday)
                 const firstDay = (new Date(year, month, 1).getDay() + 7) % 7;
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-                // Clear previous calendar days
                 calendarDaysElement.innerHTML = '';
+                scheduleTarget.innerHTML = '';
 
-                // Generate calendar days
+                const scheduleMap = new Map();
+                schedules.forEach(schedule => {
+                    const scheduleDate = new Date(schedule.date).toISOString().split('T')[0];
+                    scheduleMap.set(scheduleDate, schedule);
+                });
+
+                const today = new Date().getDate();
+                const todayString = new Date(year, month, today + 1).toISOString().split('T')[0];
+
+                const fragment = document.createDocumentFragment();
                 let day = 1;
+
                 for (let i = 0; i < 6; i++) {
                     const row = document.createElement('tr');
-
                     for (let j = 0; j < 7; j++) {
                         const cell = document.createElement('td');
                         const cellDiv = document.createElement('div');
                         cellDiv.className =
                             'w-full flex justify-center w-10 h-10 flex items-center justify-center';
-
-
-                        if (day == new Date().getDate()) {
-                            cellDiv.className =
-                                'w-full flex justify-center w-10 h-10 flex items-center justify-center bg-cyan-500/25 text-white! rounded-full';
-                        }
 
                         if (i === 0 && j < firstDay) {
                             cellDiv.innerHTML =
@@ -164,56 +190,59 @@
                         } else if (day > daysInMonth) {
                             break;
                         } else {
-                            const currentDate = new Date(year, month, day + 1);
-                            const currentDateString = currentDate.toISOString().split('T')[0]
+                            const currentDate = new Date(year, month, day + 1).toISOString().split('T')[0];
+                            const schedule = scheduleMap.get(currentDate);
 
-                            const hasSchedule = schedules.some(s => s.date.split("T")[0] == currentDateString)
-
-                            if (hasSchedule) {
-                                const schedule = schedules.find(s => s.date.split("T")[0] == currentDateString);
-                                if (schedule) {
-                                    const tmplt = scheduleTemplate.content
-                                    tmplt.querySelector('#datetime').innerText = (new Date(schedule.date)).toLocaleString('id-ID', options) + ' - ' + schedule.time.slice(0,5)
-                                    tmplt.querySelector('#location').innerText = schedule.location;
-                                    scheduleTarget.appendChild(tmplt);
-                                }
+                            if (schedule) {
+                                const tmplt = scheduleTemplate.content.cloneNode(true);
+                                tmplt.querySelector('#datetime').innerText = new Date(schedule.date)
+                                    .toLocaleString('id-ID', options) + ' - ' + schedule.time.slice(0, 5);
+                                tmplt.querySelector('#location').innerText = schedule.location;
+                                tmplt.querySelector('#deleteButton').setAttribute("onClick",
+                                    `deleteSchedule(${schedule.id})`)
+                                scheduleTarget.appendChild(tmplt);
                             }
 
-                            if (hasSchedule) {
-                                cellDiv.innerHTML =
+                            let dayContent = `<p class="text-base text-center text-gray-800">${day}</p>`;
+                            if (schedule) {
+                                dayContent =
                                     `<p class="text-base text-center border-b-2 border-cyan-500">${day}</p>`;
-                            } else if (day == new Date().getDate()) {
-                                cellDiv.innerHTML =
-                                    `<p class="text-base text-center text-cyan-700">${day}</p>`;
-                            } else
-                            if (j === 0) {
-                                cellDiv.innerHTML =
-                                    `<p class="text-base text-center text-red-500">${day}</p>`;
-                            } else {
-                                cellDiv.innerHTML =
-                                    `<p class="text-base text-center text-gray-800">${day}</p>`;
+                            } else if (day === today) {
+                                cellDiv.className += " bg-cyan-500/25 rounded-xl"
+                                dayContent = `<p class="text-base text-center text-cyan-700">${day}</p>`;
+                            } else if (j === 0) {
+                                dayContent = `<p class="text-base text-center text-red-500">${day}</p>`;
                             }
+                            cellDiv.innerHTML = dayContent;
                             day++;
                         }
 
                         cell.appendChild(cellDiv);
                         row.appendChild(cell);
                     }
-
-                    calendarDaysElement.appendChild(row);
+                    fragment.appendChild(row);
                 }
+
+                calendarDaysElement.appendChild(fragment);
+
             } catch (error) {
-                console.log(error)
+                console.error(error);
             }
         }
 
         // Initial render
+        axios.get('{{ route('api.schedule') }}')
+            .then(res => {
+                requestAnimationFrame(() => {
+                    renderCalendar(currentDate, res.data);
+                });
+            })
+            .catch(e => {
+                notyf.error("Tidak dapat mengambil jadwal");
+            });
 
-
-        axios.get('{{ route('api.schedule') }}').then(res => {
-            renderCalendar(currentDate, res.data);
-        }).catch(e => {
-            notyf.error("Tidak dapat mengambil jadwal");
-        })
-    });
+        function deleteSchedule(id) {
+            element.dispatchEvent(new CustomEvent('open-modal', 'delete-schedule'))
+        }
+    })
 </script>
