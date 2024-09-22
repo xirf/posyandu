@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Posyandu record routes
     Route::post('/posyandu/store', [PosyanduApiController::class, "store"])->name('posyandu.store');
+    Route::post('/posyandu/update', [PosyanduApiController::class, "update"])->name('posyandu.update');
 
     // Delete route
     Route::delete('/news/delete/{id}', [NewsApiController::class, "delete"])->name('api.news.delete');

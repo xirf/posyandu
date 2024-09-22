@@ -113,8 +113,16 @@ class PosyanduApiController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) {
-        //
+    public function update(Request $request) {
+        $medicalRecordId = $request->input('medical_record_id');
+        if (!$medicalRecordId) {
+            return response()->json(['success' => false, 'message' => 'Medical record ID is required'], 422);
+        } else {
+            $medicalRecord = MedicalRecord::find($medicalRecordId);
+            if (!$medicalRecord) {
+                return response()->json(['success' => false, 'message' => 'Medical record not found'], 404);
+            }
+        }
     }
 
     /**

@@ -44,5 +44,6 @@
                 @endforeach
             </div>
         </div>
+        
     </div>
 </x-home-layout>

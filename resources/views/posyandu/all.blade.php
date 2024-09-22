@@ -16,7 +16,7 @@
     <div class="max-w-full sm:p-6 lg:p-8 bg-white shadow h-screen" x-data="{
         activeData: [],
         isOpen: false,
-        modelOpen: true,
+        modelOpen: false,
         openedIndex: 0,
         openedWithKeyboard: false,
         selected: '{{ $menus[0][0] }}',
