@@ -14,7 +14,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "league/flysystem-ftp": "^3.0",
-        "nadar/quill-delta-parser": "^3.4"
+        "nadar/quill-delta-parser": "^3.4",
+        "rap2hpoutre/fast-excel": "^5.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

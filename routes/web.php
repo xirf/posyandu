@@ -51,5 +51,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::delete('/schedule/delete/{id}', [ScheduleController::class, 'destroy'])->name('.schedule.delete');
 });
 
+Route::get('/medical-record/export/{year}/{month}', [MedicalRecordController::class, 'export'])->name('medical-record.export');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/guest.php';
