@@ -1,10 +1,114 @@
-<div class="flex items-center justify-center" x-data="{
+<div x-data="{
+    deletedSchedule: null,
     openAddModal() {
-            $dispatch('open-modal', 'add-schedule')
-        },
-        closeModal() {
-            $dispatch('close-modal', 'add-schedule')
+        $dispatch('open-modal', 'add-schedule')
+    },
+    closeModal() {
+        $dispatch('close-modal', 'add-schedule')
+    },
+    init() {
+        axios.get('{{ route('api.schedule') }}').then(res => {
+            requestAnimationFrame(() => {
+                this.renderCalendar(new Date, res.data);
+            });
+        }).catch(e => {
+            notyf.error('Tidak dapat mengambil jadwal');
+        })
+    },
+    renderCalendar(date, schedules) {
+        try {
+            const month = date.getMonth()
+            const year = date.getFullYear()
+
+            const currentMonthElement = document.getElementById('currentMonth')
+            const calendarDaysElement = document.getElementById('calendarDays')
+            const scheduleTemplate = document.getElementById('scheduleTemplate')
+            const scheduleTarget = document.getElementById('scheduleTarget')
+
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+            }
+
+            currentMonthElement.textContent = date.toLocaleString('default', {
+                month: 'long',
+                year: 'numeric'
+            })
+
+            const firstDay = (new Date(year, month, 1).getDay() + 7) % 7
+            const daysInMonth = new Date(year, month + 1, 0).getDate()
+
+            calendarDaysElement.innerHTML = ''
+            scheduleTarget.innerHTML = ''
+
+            const scheduleMap = new Map()
+            schedules.forEach(schedule => {
+                const scheduleDate = new Date(schedule.date).toISOString().split('T')[0]
+                scheduleMap.set(scheduleDate, schedule)
+            })
+
+            const today = new Date().getDate()
+            const todayString = new Date(year, month, today + 1).toISOString().split('T')[0]
+
+            const fragment = document.createDocumentFragment()
+            let day = 1
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr')
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td')
+                    const cellDiv = document.createElement('div')
+                    cellDiv.className =
+                        'w-full flex justify-center w-10 h-10 flex items-center justify-center'
+
+                    if (i === 0 && j < firstDay) {
+                        cellDiv.innerHTML =
+                            '<p class=`text-base text-center text-gray-400 dark:text-gray-600`></p>'
+                    } else if (day > daysInMonth) {
+                        break
+                    } else {
+                        const currentDate = new Date(year, month, day + 1).toISOString().split('T')[0]
+                        const schedule = scheduleMap.get(currentDate)
+
+                        if (schedule) {
+                            const tmplt = scheduleTemplate.content.cloneNode(true)
+                            tmplt.querySelector('#deleteButton').setAttribute('x-on:click', `$dispatch('open-modal', 'confirm-deletion'); deletedSchedule = ${schedule.id}`)
+                            tmplt.querySelector('#datetime').innerText = new Date(schedule.date) .toLocaleString('id-ID', options) + ' - ' + schedule.time.slice(0, 5)
+                            tmplt.querySelector('#location').innerText = schedule.location
+                            scheduleTarget.appendChild(tmplt)
+                        }
+
+                        let dayContent = `<p class='text-base text-center text-gray-800'>${day}</p>`
+                        if (schedule) {
+                            dayContent = `<p class='text-base text-center border-b-2 border-cyan-500'>${day}</p>`
+                        } else if (day === today) {
+                            cellDiv.className += ` bg-cyan-500/25 rounded-xl`
+                            dayContent = `<p class='text-base text-center text-cyan-700'>${day}</p>`
+                        } else if (j === 0) {
+                            dayContent = `<p class='text-base text-center text-red-500'>${day}</p>`
+                        } else {
+                            console.log(day)
+                        }
+                        cellDiv.innerHTML = dayContent
+                        day++
+                    }
+
+                    cell.appendChild(cellDiv)
+                    row.appendChild(cell)
+                }
+                fragment.appendChild(row)
+            }
+
+            calendarDaysElement.appendChild(fragment)
+
+        } catch (error) {
+            console.error(error)
         }
+    },
+    deleteSchedule(id) {
+        $dispatch('open-modal', 'delete-schedule')
+    }
 }">
     <div class="max-w-sm w-full shadow">
         <div class="md:p-8 p-5 dark:bg-gray-800 bg-white rounded-t-xl">
@@ -92,7 +196,7 @@
 
 
     <x-modal name="confirm-deletion" :show="$errors->deleteSchedule->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        <form method="post" x-bind:action="`{{ route('dashboard.schedule.delete', '') }}/${deletedSchedule}`" class="p-6">
             @csrf
             @method('delete')
 
@@ -105,11 +209,11 @@
             </p>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+                <x-secondary-button x-on:click="$dispatch('close')" type="button">
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ms-3">
+                <x-danger-button class="ms-3" type="submit">
                     {{ __('Delete') }}
                 </x-danger-button>
             </div>
@@ -131,118 +235,3 @@
         </div>
     </div>
 </template>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentMonthElement = document.getElementById('currentMonth');
-        const calendarDaysElement = document.getElementById('calendarDays');
-        const scheduleTemplate = document.getElementById('scheduleTemplate');
-        const scheduleTarget = document.getElementById('scheduleTarget');
-
-        const options = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-        };
-
-        let currentDate = new Date();
-
-        function renderCalendar(date, schedules) {
-            try {
-                const month = date.getMonth();
-                const year = date.getFullYear();
-
-                currentMonthElement.textContent = date.toLocaleString('default', {
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                const firstDay = (new Date(year, month, 1).getDay() + 7) % 7;
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-                calendarDaysElement.innerHTML = '';
-                scheduleTarget.innerHTML = '';
-
-                const scheduleMap = new Map();
-                schedules.forEach(schedule => {
-                    const scheduleDate = new Date(schedule.date).toISOString().split('T')[0];
-                    scheduleMap.set(scheduleDate, schedule);
-                });
-
-                const today = new Date().getDate();
-                const todayString = new Date(year, month, today + 1).toISOString().split('T')[0];
-
-                const fragment = document.createDocumentFragment();
-                let day = 1;
-
-                for (let i = 0; i < 6; i++) {
-                    const row = document.createElement('tr');
-                    for (let j = 0; j < 7; j++) {
-                        const cell = document.createElement('td');
-                        const cellDiv = document.createElement('div');
-                        cellDiv.className =
-                            'w-full flex justify-center w-10 h-10 flex items-center justify-center';
-
-                        if (i === 0 && j < firstDay) {
-                            cellDiv.innerHTML =
-                                '<p class="text-base text-center text-gray-400 dark:text-gray-600"></p>';
-                        } else if (day > daysInMonth) {
-                            break;
-                        } else {
-                            const currentDate = new Date(year, month, day + 1).toISOString().split('T')[0];
-                            const schedule = scheduleMap.get(currentDate);
-
-                            if (schedule) {
-                                const tmplt = scheduleTemplate.content.cloneNode(true);
-                                tmplt.querySelector('#datetime').innerText = new Date(schedule.date)
-                                    .toLocaleString('id-ID', options) + ' - ' + schedule.time.slice(0, 5);
-                                tmplt.querySelector('#location').innerText = schedule.location;
-                                tmplt.querySelector('#deleteButton').setAttribute("onClick",
-                                    `deleteSchedule(${schedule.id})`)
-                                scheduleTarget.appendChild(tmplt);
-                            }
-
-                            let dayContent = `<p class="text-base text-center text-gray-800">${day}</p>`;
-                            if (schedule) {
-                                dayContent =
-                                    `<p class="text-base text-center border-b-2 border-cyan-500">${day}</p>`;
-                            } else if (day === today) {
-                                cellDiv.className += " bg-cyan-500/25 rounded-xl"
-                                dayContent = `<p class="text-base text-center text-cyan-700">${day}</p>`;
-                            } else if (j === 0) {
-                                dayContent = `<p class="text-base text-center text-red-500">${day}</p>`;
-                            }
-                            cellDiv.innerHTML = dayContent;
-                            day++;
-                        }
-
-                        cell.appendChild(cellDiv);
-                        row.appendChild(cell);
-                    }
-                    fragment.appendChild(row);
-                }
-
-                calendarDaysElement.appendChild(fragment);
-
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        // Initial render
-        axios.get('{{ route('api.schedule') }}')
-            .then(res => {
-                requestAnimationFrame(() => {
-                    renderCalendar(currentDate, res.data);
-                });
-            })
-            .catch(e => {
-                notyf.error("Tidak dapat mengambil jadwal");
-            });
-
-        function deleteSchedule(id) {
-            element.dispatchEvent(new CustomEvent('open-modal', 'delete-schedule'))
-        }
-    })
-</script>

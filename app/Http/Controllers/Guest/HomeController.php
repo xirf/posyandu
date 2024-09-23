@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\News;
+use App\Models\Schedule;
 use App\Models\SiteInfo;
 use Illuminate\Http\Request;
 
@@ -40,8 +41,10 @@ class HomeController extends Controller {
                 $activities[] = $item;
             }
         });
+
+        $schedule = Schedule::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->first();
     
-        return view('home.home', compact('news', 'activities'));
+        return view('home.home', compact('news', 'activities', 'schedule'));
     }
 
     public function about(){

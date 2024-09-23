@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     });
 
     Route::post('/schedule/add', [ScheduleController::class, 'store'])->name('.schedule.add');
-    Route::post('/schedule/delete/{id}', [ScheduleController::class, 'destroy'])->name('.schedule.delete');
+    Route::delete('/schedule/delete/{id}', [ScheduleController::class, 'destroy'])->name('.schedule.delete');
 });
 
 require __DIR__ . '/auth.php';
