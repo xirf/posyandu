@@ -91,7 +91,7 @@ class NewsController extends Controller {
         $post->tags()->attach($tagsIDs);
 
         // Return to previous page with success message and data
-        return redirect()->route('news.edit', $post->id)->withInput()->with('success', __('News created successfully'));
+        return redirect()->route('dashboard.news.edit', $post->id)->withInput()->with('success', __('News created successfully'));
     }
 
     /**

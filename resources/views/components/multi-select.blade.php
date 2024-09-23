@@ -36,7 +36,7 @@
     <select class="form-control w-full text-base" placeholder="{{ $placeholder ?? 'Pilih tags' }}" multiple="multiple"
         name="{{ $name }}[]" id="{{ $elementId }}">
         @foreach ($choices as $choice)
-            <option value="{{ $choice['value'] }}" {{ in_array($choice['value'], $oldValues) ? 'selected' : '' }}>
+            <option value="{{ $choice['value'] }}" {{ in_array($choice['value'], isset($oldValues) ? $oldValues : []) ? 'selected' : '' }}>
                 {{ $choice['label'] }}
             </option>
         @endforeach

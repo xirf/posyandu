@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller {
     /**
@@ -25,7 +26,13 @@ class NewsController extends Controller {
      * Display the resource.
      */
     public function showAll() {
-        $news = News::latest()->with('user', 'tags')->where('status', News::STATUS_PUBLISHED)->paginate(11);
+        $news = News::latest()->with('user', 'tags');
+
+        if (!Auth::user()) {
+            $news->where('status', News::STATUS_PUBLISHED);
+        }
+
+        $news->paginate(11);
 
         return view('home.news', compact('news'));
     }
@@ -33,7 +40,7 @@ class NewsController extends Controller {
     public function show(String $slug) {
         $news = News::where('slug', $slug)->with('user')->firstOrFail();
 
-        if ($news->status !== News::STATUS_PUBLISHED || !$news) {
+        if (($news->status !== News::STATUS_PUBLISHED || !$news) && !Auth::user()) {
             abort(404);
         }
 

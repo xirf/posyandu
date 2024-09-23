@@ -26,14 +26,20 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
         Route::get('/', [NewsController::class, 'index']);
         Route::get('/new', [NewsController::class, 'create'])->name('.new');
         Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('.edit'); 
+
         Route::post('/update/{id}', [NewsController::class, 'update'])->name('.update');
+        Route::post('/new', [NewsController::class, 'store'])->name('.store');
     });
 
     Route::prefix('activity')->name('.activity')->group(function () {
         Route::get('/', [ActivityController::class, 'index']);
         Route::get('/new', [ActivityController::class, 'create'])->name('.new');
         Route::post('/new', [ActivityController::class, 'store'])->name('.store');
+        Route::get('/edit/{id}', [ActivityController::class, 'edit'])->name('.edit');
+
         Route::post('/update', [ActivityController::class, 'store'])->name('.update');
+        Route::post('/update/{id}', [ActivityController::class, 'update'])->name('.update');
+
     });
 
     Route::prefix('posyandu')->name('.posyandu')->group(function () {

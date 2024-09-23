@@ -9,9 +9,9 @@
     </x-slot>
 
     <form action="{{ $submit_to }}" id="activity-form" method="POST" x-data="{
-        medias: [],
+        medias: {{ old('medias', '[]') }},
         y_availableImages: [],
-        y_selectedImage: null,
+        y_selectedImage: {{ old('medias', '[]') }},
         y_isImageLoading: true,
         y_endpoint: '{{ route('upload') }}',
         y_csrf: '{{ csrf_token() }}',
@@ -71,7 +71,7 @@
         @csrf
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-8  items-start">
             <div class="grow space-y-4">
-                <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '{{ old('permalink', url('activity')) }}', overflow: false, sitePath: '{{ url('activity') }}' }">
+                <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '{{ old('slug') }}', overflow: false, sitePath: '{{ url('activity') }}' }">
                     <x-text-input class="w-full" placeholder="{{ __('Title') }}" name="title" id="title"
                         value="{{ old('title') }}" required autofocus
                         @input=" permalink = sitePath + '/' + $event.target.value.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '').substring(0, 100);
@@ -88,8 +88,12 @@
                             class="border border-gray-300 rounded-md w-full hidden" readonly>
                     </div>
 
-                    <x-quill name="body" value="{{ old('body') }}" placeholder="Content here..." :endpoint="`{{ route('upload') }}`"
-                        :formId="'activity-form'" />
+                    @if (old('about'))
+                        <div class="hidden" id="quill-initial-data">
+                            {!! old('about', null) !!}
+                        </div>
+                    @endif
+                    <x-quill name="about" placeholder="Content here..." :endpoint="`{{ route('upload') }}`" :formId="'activity-form'" />
                 </div>
                 <div class="p-4 bg-white shadow sm:rounded-lg space-y-4"">
                     <div>

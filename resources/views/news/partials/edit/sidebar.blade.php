@@ -26,7 +26,7 @@
     <div class="grid grid-cols-3 gap-4">
         <div class="flex gap-2 items-center">
             <x-heroicon-o-calendar-days class="w-5 h-5" />
-            <p>{{ __('Publish') }}</p>
+            <p>{{ __('Update') }}</p>
         </div>
         <div class="col-span-2 w-full">
             <input type="datetime-local" name="published_at" value="{{ old('published_at', isset($post->published_at) ? \Carbon\Carbon::parse($post->published_at)->format('Y-m-d\TH:i') : '') }}"
