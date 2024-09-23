@@ -25,13 +25,15 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::prefix('news')->name('.news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);
         Route::get('/new', [NewsController::class, 'create'])->name('.new');
-        Route::post('/new', [NewsController::class, 'store'])->name('.store');
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('.edit'); 
+        Route::post('/update/{id}', [NewsController::class, 'update'])->name('.update');
     });
 
     Route::prefix('activity')->name('.activity')->group(function () {
         Route::get('/', [ActivityController::class, 'index']);
         Route::get('/new', [ActivityController::class, 'create'])->name('.new');
         Route::post('/new', [ActivityController::class, 'store'])->name('.store');
+        Route::post('/update', [ActivityController::class, 'store'])->name('.update');
     });
 
     Route::prefix('posyandu')->name('.posyandu')->group(function () {
@@ -49,9 +51,11 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
 
     Route::post('/schedule/add', [ScheduleController::class, 'store'])->name('.schedule.add');
     Route::delete('/schedule/delete/{id}', [ScheduleController::class, 'destroy'])->name('.schedule.delete');
+
+    Route::get('/medical-record/export/{year}/{month}', [MedicalRecordController::class, 'export'])->name('.medical-record.export.monthly');
+    Route::get('/medical-record/export/{year}', [MedicalRecordController::class, 'exportAll'])->name('.medical-record.export.yearly');
 });
 
-Route::get('/medical-record/export/{year}/{month}', [MedicalRecordController::class, 'export'])->name('medical-record.export');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/guest.php';

@@ -92,9 +92,7 @@
                 </div>
                 @include('posyandu.partials.search')
                 @include('posyandu.partials.age-filter')
-                <a>
-                    <x-secondary-button>{{ __('Export') }}</x-primary-button>
-                </a>
+                @include('posyandu.partials.export')
                 <a href="{{ route('dashboard.posyandu.create') }}">
                     <x-primary-button>{{ __('Add') }}</x-primary-button>
                 </a>

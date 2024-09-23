@@ -25,7 +25,7 @@
 
 <div class="mb-5 w-full">
     @if ($label ?? null)
-        <label for="{{ $name }}" class="form-label block mb-1  text-lg font-semibold text-gray-700">
+        <label for="{{ $name }}" class="form-label block mb-1 text-lg font-semibold text-gray-700">
             {{ $label }}
             @if ($optional ?? null)
                 <span class="text-sm text-gray-500 font-normal">(optional)</span>
@@ -33,12 +33,12 @@
         </label>
     @endif
 
-
     <select class="form-control w-full text-base" placeholder="{{ $placeholder ?? 'Pilih tags' }}" multiple="multiple"
         name="{{ $name }}[]" id="{{ $elementId }}">
         @foreach ($choices as $choice)
-            <option value="{{ $choice['value'] }}">{{ $choice['label'] }}</option>
+            <option value="{{ $choice['value'] }}" {{ in_array($choice['value'], $oldValues) ? 'selected' : '' }}>
+                {{ $choice['label'] }}
+            </option>
         @endforeach
     </select>
-
 </div>

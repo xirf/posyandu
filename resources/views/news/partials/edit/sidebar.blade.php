@@ -20,7 +20,7 @@
                     'value' => 'published',
                     'label' => 'Published',
                 ],
-            ]" :placeholder="__('Choose')" :selected="old('status', 'published')" />
+            ]" :placeholder="__('Choose')" :selected="old('status', $post->status)" />
         </div>
     </div>
     <div class="grid grid-cols-3 gap-4">
@@ -29,7 +29,7 @@
             <p>{{ __('Publish') }}</p>
         </div>
         <div class="col-span-2 w-full">
-            <input type="datetime-local" name="published_at" value="{{ old('published_at', date('Y-m-d\TH:i')) }}"
+            <input type="datetime-local" name="published_at" value="{{ old('published_at', isset($post->published_at) ? \Carbon\Carbon::parse($post->published_at)->format('Y-m-d\TH:i') : '') }}"
                 class="w-full text-sm py-3 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" />
         </div>
     </div>
@@ -45,8 +45,8 @@
         <p class="text-xs text-gray">{{ __('Press enter or use comma to add') }}</p>
     </div>
 
-    <x-multi-select name="tags" :searchPlaceholderValue="'Search tags'" :multiple="true" :choices="$tags" :selected="old('tags', [])">
+    <x-multi-select name="tags" :searchPlaceholderValue="'Search tags'" :multiple="true" :choices="$tags" :oldValues="old('tags', $post->tags->pluck('name')->toArray())">
     </x-multi-select>
 </div>
 
-<x-select-image />
+@include('news.partials.edit.select-image')

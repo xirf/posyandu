@@ -95,7 +95,7 @@
                                 <tr>
                                     <td x-text="index + 1"></td>
                                     <td class="grow text-left">
-                                        <a href="#">
+                                        <a x-bind:href="`{{ route('news.show', '') }}/${post.slug}`">
                                             <h2 x-text="post.title"></h2>
                                         </a>
                                     </td>
@@ -115,7 +115,8 @@
                                     </td>
                                     <td>
                                         <div class="flex justify-center space-x-2">
-                                            <a href="#" class="text-blue-500">
+                                            <a x-bind:href="`{{ route('dashboard.news.edit', '') }}/${post.id}`"
+                                                class="text-blue-500">
                                                 <x-heroicon-o-pencil-square class="w-6 h-6" />
                                             </a>
                                             <a href="#" class="text-red-500"

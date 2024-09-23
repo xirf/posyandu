@@ -55,7 +55,7 @@ class MedicalRecordController extends Controller {
             return [
                 'Nama Pasien' => $record->patient->name,
                 'NIK' => optional($record->patient->nik),
-                'Jenis Kelamin' => $record->patient->gender,
+                'Jenis Kelamin' => __($record->patient->gender),
                 'Tanggal Lahir' => $record->patient->birthdate,
                 'Tempat Lahir' => $record->patient->place_of_birth,
                 'Desa' => $record->patient->dukuh,
@@ -80,6 +80,54 @@ class MedicalRecordController extends Controller {
         });
 
         $filePath = "exports/medical-records_{$year}_{$month}.xlsx";
+        (new FastExcel($formattedRecords))->export(storage_path("app/{$filePath}"));
+
+        Cache::put($cacheKey, $filePath, now()->addHours(1));
+
+        return response()->download(storage_path("app/{$filePath}"));
+    }
+    
+    public function exportAll(string $year) {
+        $cacheKey = "medical_records_excel_{$year}";
+
+        if (Cache::has($cacheKey)) {
+            $filePath = Cache::get($cacheKey);
+            return response()->download(storage_path("app/{$filePath}"));
+        }
+
+        $medicalRecords = MedicalRecord::with('patient', 'vitalStatistics', 'labResults')
+            ->whereYear('created_at', $year)
+            ->get();
+
+        $formattedRecords = $medicalRecords->map(function ($record) {
+            return [
+                'Nama Pasien' => $record->patient->name,
+                'NIK' => optional($record->patient->nik),
+                'Jenis Kelamin' => __($record->patient->gender),
+                'Tanggal Lahir' => $record->patient->birthdate,
+                'Tempat Lahir' => $record->patient->place_of_birth,
+                'Desa' => $record->patient->dukuh,
+                'RT' => $record->patient->rt,
+                'RW' => $record->patient->rw,
+                'Kelompok Umur' => __($record->patient->age_group),
+                'Tinggi Badan' => optional($record->vitalStatistics)->height,
+                'Berat Badan' => optional($record->vitalStatistics)->weight,
+                'Lingkar Kepala' => optional($record->vitalStatistics)->head_circumference,
+                'Lingkar Lengan Atas' => optional($record->vitalStatistics)->arm_circumference,
+                'Lingkar Pinggul' => optional($record->vitalStatistics)->abdominal_circumference,
+                'Kolesterol' => optional($record->labResults)->cholesterol,
+                'Hemoglobin' => optional($record->labResults)->hemoglobin,
+                'Gula Darah' => optional($record->labResults)->gda,
+                'Urine' => optional($record->labResults)->ua,
+                'KB' => optional($record->family_planning),
+                'Keluhan' => optional($record->complaints),
+                'Diagnosa' => optional($record->diagnosis),
+                'Penyakit' => optional($record->diseases),
+                'Obat' => optional($record->medication),
+            ];
+        });
+
+        $filePath = "exports/medical-records_{$year}.xlsx";
         (new FastExcel($formattedRecords))->export(storage_path("app/{$filePath}"));
 
         Cache::put($cacheKey, $filePath, now()->addHours(1));
