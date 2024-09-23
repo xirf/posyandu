@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller {
     /**
@@ -25,15 +26,21 @@ class ActivityController extends Controller {
      * Display the resource.
      */
     public function showAll() {
-        $activities = Activity::with('user')->latest()->paginate(11);
+        $activities = Activity::latest()->with('user', 'tags');
+
+        if (!Auth::user()) {
+            $activities->where('status', Activity::STATUS_PUBLISHED);
+        }
+
+        $activities->paginate(11);
 
         return view('activity.view', compact('activities'));
     }
 
     public function show($slug) {
-        $activity = Activity::where('slug', $slug)->firstOrFail();
+        $activity = Activity::where('slug', $slug)->with('user')->firstOrFail();
 
-        if ($activity->status !== 'published' || !$activity) {
+        if (($activity->status !== 'published' || !$activity) && !Auth::user()) {
             abort(404);
         }
 
