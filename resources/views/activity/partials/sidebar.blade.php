@@ -14,11 +14,11 @@
             <x-select :name="'status'" :id="'status'" :options="[
                 [
                     'value' => 'draft',
-                    'label' => 'Draft',
+                    'label' => __('Draft'),
                 ],
                 [
                     'value' => 'published',
-                    'label' => 'Published',
+                    'label' => __('Published'),
                 ],
             ]" :placeholder="__('Choose')" :selected="old('status', 'published')" />
         </div>

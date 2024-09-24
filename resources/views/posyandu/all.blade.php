@@ -108,4 +108,12 @@
         </div>
         @include('posyandu.partials.modal')
     </div>
+
+    @if(session('success'))
+        @push('scripts')
+            <script>
+                notyf.success('{{ session('success') }}');
+            </script>
+        @endpush
+    @endif
 </x-app-layout>

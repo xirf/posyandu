@@ -125,5 +125,11 @@
     "Select or add from name, you can also update the patient's information": "Pilih atau tambahkan dari nama, Anda juga dapat memperbarui informasi pasien.",
     "Profile": "Profil",
     "Edit your profile information here": "Edit informasi profil anda di sini",
-    "Add New Record": "Tambahkan Rekaman Baru"
+    "Add New Record": "Tambahkan Rekaman Baru",
+    "Age Group": "Kelompok Usia",
+    "Glucose Level": "Gula Darah",
+    "Birth Place and Date": "Tempat dan Tanggal Lahir",
+    "Medical record deleted successfully": "Rekam medis berhasil dihapus",
+    "Are you sure you want to delete this schedule?": "Apakah Anda yakin ingin menghapus jadwal ini?",
+    "This action is not reversible": "Tindakan ini tidak dapat dibatalkan"
 }

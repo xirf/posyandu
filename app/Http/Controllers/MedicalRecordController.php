@@ -160,6 +160,12 @@ class MedicalRecordController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(string $id) {
-        //
+        $medicalRecords = MedicalRecord::findOrFail($id);
+        $medicalRecords->vitalStatistics()->delete();
+        $medicalRecords->labResults()->delete();
+        $medicalRecords->delete();
+
+        return redirect()->back()->with('success', __('Medical record deleted successfully'));
+
     }
 }

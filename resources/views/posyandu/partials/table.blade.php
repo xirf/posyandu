@@ -42,7 +42,7 @@
                 <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.cholesterol"></td>
                 <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.hemoglobin"></td>
                 <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.gda"></td>
-                <td x-show="openedIndex > 2 || openedIndex == 0" x-text="data.lab_results?.ua"></td>
+                <td x-show="openedIndex > 2 || openedIndex == 0" > <div x-text="data.lab_results?.ua" class="line-clamp-4"></div></td>
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.family_planning ==  0 ? '{{ __('No') }}' : '{{ __('Yes') }}'" :class="{ 'badge-success': data.family_planning == 1, 'badge-neutral': data.family_planning == 0 }" class="badge badge-outline"> </div> </td>
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.complaints" class="line-clamp-4"></div> </td> 
                 <td x-show="openedIndex > 3 || openedIndex == 0" > <div x-text="data.diagnosis" class="line-clamp-4"></div> </td>

@@ -44,11 +44,11 @@
         <div class="mt-4">
             <x-input-label for="description" :value="__('Description (About Us)')" class="mb-1" />
 
-            <div class="max-h-96 overflow-auto">
+            <div class="max-h-96 overflow-auto  border  rounded-lg">
                 <x-quill :formId="$formId" :name="'description'" :endpoint="`{{ route('upload') }}`" />
             </div>
         </div>
-        <x-primary-button>
+        <x-primary-button class="mt-4">
             {{ __('Save') }}
         </x-primary-button>
     </form>
