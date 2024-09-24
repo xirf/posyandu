@@ -44,7 +44,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::prefix('posyandu')->name('.posyandu')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index']);
         Route::get('/new', [MedicalRecordController::class, 'create'])->name('.create');
+        Route::get('/edit/{id}', [MedicalRecordController::class, 'edit'])->name('.edit');
         Route::delete('/delete/{id}', [MedicalRecordController::class, 'destroy'])->name('.delete');
+        Route::post('/update/{id}', [MedicalRecordController::class, 'update'])->name('.update');
     });
 
     Route::prefix('user')->name('.users')->group(function () {
