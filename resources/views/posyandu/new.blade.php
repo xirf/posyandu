@@ -14,11 +14,11 @@
             {{ __('Add New Record') }}
         </h2>
     </x-slot>
-    <form class="bg-white max-w-7xl mx-auto rounded-lg m-4 border shadow p-8 space-y-4" x-data="{ openedTab: '{{ $menus[0][0] }}', openedIndex: 0 }" id="addNewRecordForm">
+    <form class="bg-white max-w-7xl mx-auto rounded-lg m-4 border shadow p-4 lg:p-8 space-y-4" x-data="{ openedTab: '{{ $menus[0][0] }}', openedIndex: 0 }" id="addNewRecordForm">
         <div class="w-full border-b">
             <div role="tablist" class="tabs grid grid-cols-5 w-fit relative">
                 @foreach ($menus as $menu)
-                    <div role="tab" class="tab"
+                    <div role="tab" class="tab line-clamp-1"
                         @click="openedTab = '{{ $menu[0] }}', openedIndex = {{ $loop->index }}">
                         {{ __($menu[1]) }}
                     </div>
@@ -33,33 +33,33 @@
             <h2 class="text-xl font-bold">{{ __('Patient Information') }}</h2>
             <p class="text-xs text-gray-500">
                 {{ __("Select or add from name, you can also update the patient's information") }}</p>
-            <div class="gap-4 gap-y-2 grid grid-cols-5 mt-2">
+            <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
                 @include('posyandu.partials.new.patient')
             </div>
         </div>
         <div>
             <h2 class="text-xl font-bold">{{ __('Vital Information') }}</h2>
-            <div class="gap-4 grid grid-cols-5 mt-2">
+            <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
                 @include('posyandu.partials.new.vital')
             </div>
         </div>
         <div class="overflow-y-hidden transition-all duration-500 ease-in-out origin-top"
             x-bind:class="{
                 'max-h-0': openedIndex <= 1,
-                'max-h-36': openedIndex > 1
+                'lg:max-h-36 max-h-full': openedIndex > 1
             }">
             <h2 class="text-xl font-bold">{{ __('Lab Results') }}</h2>
-            <div class="gap-4 grid grid-cols-5 mt-2">
+            <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
                 @include('posyandu.partials.new.lab')
             </div>
         </div>
         <div class="overflow-y-hidden transition-all duration-500 ease-in-out origin-top"
             x-bind:class="{
                 'max-h-0': openedIndex <= 2,
-                'max-h-60': openedIndex > 2
+                'lg:max-h-60 max-h-full': openedIndex > 2
             }">
             <h2 class="text-xl font-bold">{{ __('Medical History') }}</h2>
-            <div class="gap-4 grid grid-cols-5 mt-2">
+            <div class="gap-4 gap-y-2 grid lg:grid-cols-5  mt-2">
                 @include('posyandu.partials.new.history')
             </div>
 

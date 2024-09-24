@@ -1,4 +1,4 @@
-<div class="rounded-xl shadow bg-white p-8 w-fit">
+<div class="rounded-xl shadow bg-white p-8 w-full">
     <div class="flex items-center justify-between">
         <span tabindex="0" class="focus:outline-none text-xl font-bold text-gray-800">{{ __('News') }}</span>
         <a href="{{route('dashboard.news.new') }}">
@@ -7,7 +7,7 @@
             </div>
         </a>
     </div>
-    <div class="mt-4 relative w-96">
+    <div class="mt-4 relative w-full 2xl:w-96">
         @if (count($news) === 0)
             <x-empty :text="__('No News')" :description="__('No news found try to add one')">
                 <a href="{{ route('dashboard.news.new') }}" class="w-full flex justify-center">

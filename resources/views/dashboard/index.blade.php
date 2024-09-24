@@ -7,8 +7,8 @@
             {{ __('General information about the activity') }}
         </p>
     </div>
-    <div class="px-8 flex flex-row gap-8">
-        <div class="mx-auto grow flex gap-8 w-full">
+    <div class="px-8 flex flex-col xl:flex-row gap-8 pb-32">
+        <div class="mx-auto grow flex flex-col 2xl:flex-row gap-8 w-full">
             @include('dashboard.partials.chart')
             @include('dashboard.partials.news')
         </div>

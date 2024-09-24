@@ -7,11 +7,9 @@
         <h1 class="text-xl font-bold">{{ __('About') }}</h1>
         <p>{{ __('Explain about your site here.') }}</p>
     </div>
-    @if ($siteInfo && $siteInfo->description)
-        <div class="hidden" id="quill-initial-data">
-            {!! $siteInfo->description !!}
-        </div>
-    @endif
+    <div class="hidden" id="quill-initial-data">
+        {!! $mysiteInfo->description !!}
+    </div>
     <form action="{{ route('site-info.update') }}" method="post" id="{{ $formId }}">
         @csrf
 

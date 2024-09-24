@@ -27,9 +27,12 @@
         <div class="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content min-h-screen flex flex-col">
-                <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
-                    Open drawer
-                </label>
+                <div class="p-4 flex w-full items-center justify-between">
+                    <x-application-logo class="h-10" />
+                    <label for="my-drawer-2" class="drawer-button lg:hidden">
+                        <x-heroicon-o-bars-3-bottom-right class="w-8 h-8" />
+                    </label>
+                </div>
 
                 @isset($header)
                     <header class="m-auto max-w-7xl w-full">
@@ -44,7 +47,7 @@
                     {{ $slot }}
                 </main>
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side z-[9999]">
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
                 <div class="bg-white border h-screen w-56">
                     <x-sidebar />

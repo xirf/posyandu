@@ -14,7 +14,7 @@
             </x-primary-button>
         </a>
     </div>
-    <div class="grid grid-cols-2 w-full  gap-4">
+    <div class="grid md:grid-cols-2 w-full  gap-4">
         @foreach ($users as $user)
             <div class="p-4 bg-white shadow rounded-lg flex flex-row gap-2 border">
                 <img src="{{ $user->picture }}" alt="{{ $user->name }}"

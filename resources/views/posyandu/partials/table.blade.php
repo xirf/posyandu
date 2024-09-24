@@ -1,7 +1,14 @@
+@pushOnce('styles')
+    <style>
+        thead > tr > th:first-child, tbody > tr > td:first-child{
+            background-color: white !important;
+        }
+    </style>
+@endPushOnce
 <table class="table">
     <thead class="bg-[#f5f7f9]">
         <tr>
-            <th @click="sortBy('patient.name')" class="w-30 cursor-pointer"><span>{{ __('Patient') }}</span></th>
+            <th @click="sortBy('patient.name')" class="w-30 cursor-pointer bg-red-300"><span>{{ __('Patient') }}</span></th>
             <th @click="sortBy('patient.dukuh')" class="w-30 cursor-pointer"><span>{{ __('Address') }}</span></th>
             <th @click="sortBy('patient.age_group')" class="w-30 cursor-pointer"><span>{{ __('Age Group') }}</span></th>
             <th @click="sortBy('vital_statistics.height')" class="w-20 cursor-pointer"><span class="tooltip tooltip-bottom" data-tip="{{ __('Height') }}">{{ __('TB') }}</span> </th>
@@ -24,7 +31,7 @@
             <tr class="hover:bg-cyan-50" x-show="!isLoading && !data.hiddenBySearch"
             @click="modelOpen=true; selectedPatient=data"
             >
-                <td> <div class="grid" > <div :class="{ 'text-blue-500': data.patient.gender === 'male', 'text-pink-500': data.patient.gender === 'female', }" class="font-bold w-32 truncate text-sm" x-text="data.patient.name"></div> </div> <div x-text="`${data.patient.place_of_birth} ${data.patient.birthdate}`"></div> </div> </td>
+                <td class="bg-red-500"> <div class="grid bg-red-500!" > <div :class="{ 'text-blue-500': data.patient.gender === 'male', 'text-pink-500': data.patient.gender === 'female', }" class="font-bold w-32 truncate text-sm" x-text="data.patient.name"></div> </div> <div x-text="`${data.patient.place_of_birth} ${data.patient.birthdate}`"></div> </div> </td>
                 <td> <div class="grid"> <div x-text="data.patient.dukuh"></div> <div class="text-gray-400" x-text="`RT ${data.patient.rt}`"></div> <div class="text-gray-400" x-text="`RW ${data.patient.rw}`"></div> </div> </td>
                 <td x-text="ages[data.patient.age_group]"></td>
                 <td x-text="data.vital_statistics.height"></td>

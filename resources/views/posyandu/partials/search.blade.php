@@ -1,4 +1,4 @@
-<div class="relative flex w-full max-w-xs flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+<div class="relative flex w-full flex-col gap-1 text-neutral-600 dark:text-neutral-300">
     <x-heroicon-o-magnifying-glass class="absolute top-2 left-3 w-5 h-5" />
     <input type="search"
         x-on:input.debounce.300ms="search($event.target.value)"

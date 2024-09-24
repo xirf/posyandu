@@ -70,7 +70,7 @@
             }
         }">
         @csrf
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-8  items-start">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col xl:flex-row p-4 gap-8  items-start">
             <div class="grow space-y-4">
                 <div class="p-4 bg-white shadow sm:rounded-lg space-y-4" x-data="{ permalink: '{{ old('slug', $activity->slug) }}', overflow: false, sitePath: '{{ url('activity') }}' }">
                     <x-text-input class="w-full" placeholder="{{ __('Title') }}" name="title" id="title"
