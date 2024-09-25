@@ -2,7 +2,7 @@
     <div class="w-full flex justify-between">
         <div>
             <h2 class="block mb-1 text-lg font-semibold text-gray-700">{{ __('Post') }}</h2>
-            <p class="text-xs text-gray">{{ __('Create a new post ') }}</p>
+            <p class="text-xs text-gray">{{ __('Create a new post') }}</p>
         </div>
     </div>
     <div class="grid grid-cols-3 gap-4">
@@ -18,7 +18,7 @@
                 ],
                 [
                     'value' => 'published',
-                    'label' => 'Published',
+                    'label' => __('Published'),
                 ],
             ]" :placeholder="__('Choose')" :selected="old('status', 'published')" />
         </div>

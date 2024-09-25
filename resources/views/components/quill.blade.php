@@ -100,7 +100,7 @@
             },
         },
         theme: 'snow',
-        placeholder: '{{ $placeholder ?? 'Write something great!' }}'
+        placeholder: '{{ $placeholder ?? __('Write something great!') }}'
     });
     quill.on('text-change', function() {
         let html = quill.root.innerHTML;
