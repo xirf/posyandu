@@ -1,4 +1,4 @@
-<nav aria-label="pagination" class="flex justify-between items-center text-sm font-medium ">
+<nav aria-label="pagination" class="flex flex-col md:flex-row gap-2 py-2 justify-between items-center text-sm font-medium ">
     <div>
         <p>{{ __('Showing') }} <span x-text="`${activeData.from}-${activeData.to}`"></span>
             {{ __('Of') }} <span x-text="activeData.total"></span></p>

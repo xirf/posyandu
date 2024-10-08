@@ -55,7 +55,7 @@
             class="flex items-center gap-4 py-2 px-4 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-md">
             <img src="{{ auth()->user()->picture }}" alt="{{ auth()->user()->name }}"
                 class="w-10 h-10 rounded-full object-cover overflow-hidden border shrink-0">
-            <span class="font-bold overflow-hidden line-clamp-2">{{ auth()->user()->name }}asdad asd a das d</span>
+            <span class="font-bold overflow-hidden line-clamp-2">{{ auth()->user()->name }}</span>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <a href="{{ route('profile.edit') }}">

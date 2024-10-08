@@ -97,7 +97,8 @@
     "Phone": "Ponsel",
     "Description (About Us)": "Deskripsi (Tentang Kita)",
     "Statistics": "Statistik",
-    "No": "Nomor",
+    "No": "Tidak",
+    "Yes": "Ya",
     "Title": "Judul",
     "Author": "Penulis",
     "Updated": "Diperbarui",
@@ -133,4 +134,10 @@
     "Search patient...": "Cari pasien...",
     "Lab Results": "Hasil Lab",
     "Urine Test": "Tes Urine"
+    "Age Group": "Kelompok Usia",
+    "Glucose Level": "Gula Darah",
+    "Birth Place and Date": "Tempat dan Tanggal Lahir",
+    "Medical record deleted successfully": "Rekam medis berhasil dihapus",
+    "Are you sure you want to delete this schedule?": "Apakah Anda yakin ingin menghapus jadwal ini?",
+    "This action is not reversible": "Tindakan ini tidak dapat dibatalkan"
 }

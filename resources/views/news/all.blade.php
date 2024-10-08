@@ -57,7 +57,7 @@
                 });
         }
     }" x-init="getPosts()" class="w-full" x-cloak>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div class="w-full p-4 bg-white rounded-lg flex items-center justify-between">
                 <div class="overflow-x-auto w-full">
                     <table class="table w-full bg-white text-center">

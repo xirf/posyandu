@@ -7,11 +7,9 @@
         <h1 class="text-xl font-bold">{{ __('About') }}</h1>
         <p>{{ __('Explain about your site here.') }}</p>
     </div>
-    @if ($siteInfo && $siteInfo->description)
-        <div class="hidden" id="quill-initial-data">
-            {!! $siteInfo->description !!}
-        </div>
-    @endif
+    <div class="hidden" id="quill-initial-data">
+        {!! $mysiteInfo->description !!}
+    </div>
     <form action="{{ route('site-info.update') }}" method="post" id="{{ $formId }}">
         @csrf
 
@@ -46,11 +44,11 @@
         <div class="mt-4">
             <x-input-label for="description" :value="__('Description (About Us)')" class="mb-1" />
 
-            <div class="max-h-96 overflow-auto">
+            <div class="max-h-96 overflow-auto  border  rounded-lg">
                 <x-quill :formId="$formId" :name="'description'" :endpoint="`{{ route('upload') }}`" />
             </div>
         </div>
-        <x-primary-button>
+        <x-primary-button class="mt-4">
             {{ __('Save') }}
         </x-primary-button>
     </form>

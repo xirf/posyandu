@@ -25,7 +25,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::prefix('news')->name('.news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);
         Route::get('/new', [NewsController::class, 'create'])->name('.new');
-        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('.edit'); 
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('.edit');
 
         Route::post('/update/{id}', [NewsController::class, 'update'])->name('.update');
         Route::post('/new', [NewsController::class, 'store'])->name('.store');
@@ -39,12 +39,14 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
 
         Route::post('/update', [ActivityController::class, 'store'])->name('.update');
         Route::post('/update/{id}', [ActivityController::class, 'update'])->name('.update');
-
     });
 
     Route::prefix('posyandu')->name('.posyandu')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index']);
         Route::get('/new', [MedicalRecordController::class, 'create'])->name('.create');
+        Route::get('/edit/{id}', [MedicalRecordController::class, 'edit'])->name('.edit');
+        Route::delete('/delete/{id}', [MedicalRecordController::class, 'destroy'])->name('.delete');
+        Route::post('/update/{id}', [MedicalRecordController::class, 'update'])->name('.update');
     });
 
     Route::prefix('user')->name('.users')->group(function () {

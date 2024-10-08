@@ -83,19 +83,23 @@
             }
         }
     }">
-        <div class="w-full grow flex flex-col h-full space-y-2">
-            <div class="w-full flex z-50 flex-end gap-4">
-                <div class="grow">
+        <div class="w-full grow flex flex-col h-full space-y-2 p-4">
+            <div class="w-full grid md:flex grid-cols-3 md:flex-row z-50 flex-end gap-4">
+                <div class="grow col-span-3">
                     <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-200">{{ __('Posyandu') }}</h2>
                     <p class="text-xs font-normal text-neutral-500 dark:text-neutral-400">
                         {{ __('Click name to see more') }}</p>
                 </div>
-                @include('posyandu.partials.search')
-                @include('posyandu.partials.age-filter')
-                @include('posyandu.partials.export')
-                <a href="{{ route('dashboard.posyandu.create') }}">
-                    <x-primary-button>{{ __('Add') }}</x-primary-button>
-                </a>
+                <div class="col-span-3 md:max-w-36">
+                    @include('posyandu.partials.search')
+                </div>
+                <div class="grid grid-cols-3 md:w-80 gap-4 col-span-3">
+                    @include('posyandu.partials.age-filter')
+                    @include('posyandu.partials.export')
+                    <a href="{{ route('dashboard.posyandu.create') }}" class="w-full">
+                        <x-primary-button class="w-full"> {{ __('Add') }} </x-primary-button>
+                    </a>
+                </div>
             </div>
             <div class="w-full overflow-auto grow border rounded-md h-full">
                 @include('posyandu.partials.table')
@@ -104,4 +108,12 @@
         </div>
         @include('posyandu.partials.modal')
     </div>
+
+    @if(session('success'))
+        @push('scripts')
+            <script>
+                notyf.success('{{ session('success') }}');
+            </script>
+        @endpush
+    @endif
 </x-app-layout>

@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class SiteInfoController extends Controller {
     public function index() {
         $users = User::all();
-        $siteInfo = SiteInfo::first();
+        $mysiteInfo = SiteInfo::first();
 
-        return view('site-info.edit', compact('users', 'siteInfo'));
+        return view('site-info.edit', compact('users', 'mysiteInfo'));
     }
     /**
      * Show the form for creating the resource.

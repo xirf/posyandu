@@ -1,9 +1,9 @@
 @props(['endpoint' => route('upload')])
 
 <div class="shadow bg-white sm:rounded-lg space-y-4 p-4" x-data="{
-    x_img: '{{ old('thumbnail', $activity->thumbnail) }}',
+    x_img: '{{ old('thumbnail', isset($activity) ? $activity->thumbnail : '') }}',
     x_availableImages: [],
-    x_selectedImage: '{{ old('thumbnail', $activity->thumbnail) }}',
+    x_selectedImage: '{{ old('thumbnail', isset($activity) ? $activity->thumbnail : '') }}',
     x_isImageLoading: true,
     x_endpoint: '{{ $endpoint ?? '' }}',
     x_csrf: '{{ csrf_token() }}',

@@ -24,7 +24,7 @@ class NewsController extends Controller {
 
     /**
      * Display the resource.
-     */
+     */ 
     public function showAll() {
         $news = News::latest()->with('user', 'tags');
 

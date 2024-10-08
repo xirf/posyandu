@@ -11,10 +11,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add New Record') }}
+            {{ __('Edit Record') }}
         </h2>
     </x-slot>
-    <form class="bg-white max-w-7xl mx-auto rounded-lg m-4 border shadow p-4 lg:p-8 space-y-4" x-data="{ openedTab: '{{ $menus[0][0] }}', openedIndex: 0 }" id="addNewRecordForm">
+    <form class="bg-white max-w-7xl mx-auto rounded-lg m-4 border shadow p-4 lg:p-8 space-y-4" 
+        id="addNewRecordForm"
+        x-data="{
+            openedTab: '{{ $medicalRecord->patient->age_group }}',
+            openedIndex: {{ array_search($medicalRecord->patient->age_group, array_column($menus, 0)) }}
+        }">
         <div class="w-full border-b">
             <div role="tablist" class="tabs grid grid-cols-5 w-fit relative">
                 @foreach ($menus as $menu)
@@ -34,13 +39,13 @@
             <p class="text-xs text-gray-500">
                 {{ __("Select or add from name, you can also update the patient's information") }}</p>
             <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
-                @include('posyandu.partials.new.patient')
+                @include('posyandu.partials.edit.patient')
             </div>
         </div>
         <div>
             <h2 class="text-xl font-bold">{{ __('Vital Information') }}</h2>
             <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
-                @include('posyandu.partials.new.vital')
+                @include('posyandu.partials.edit.vital')
             </div>
         </div>
         <div class="overflow-y-hidden transition-all duration-500 ease-in-out origin-top"
@@ -50,7 +55,7 @@
             }">
             <h2 class="text-xl font-bold">{{ __('Lab Results') }}</h2>
             <div class="gap-4 gap-y-2 grid lg:grid-cols-5 grid-cols-2 mt-2">
-                @include('posyandu.partials.new.lab')
+                @include('posyandu.partials.edit.lab')
             </div>
         </div>
         <div class="overflow-y-hidden transition-all duration-500 ease-in-out origin-top"
@@ -60,14 +65,15 @@
             }">
             <h2 class="text-xl font-bold">{{ __('Medical History') }}</h2>
             <div class="gap-4 gap-y-2 grid lg:grid-cols-5  mt-2">
-                @include('posyandu.partials.new.history')
+                @include('posyandu.partials.edit.history')
             </div>
 
             <div class="w-fit">
                 <div class="block mt-4">
                     <label for="kb" class="inline-flex items-center">
                         <input id="kb" type="checkbox"
-                            class="rounded border-gray-300 text-cyan-600 shadow-sm focus:ring-cyan-500" name="kb">
+                            class="rounded border-gray-300 text-cyan-600 shadow-sm focus:ring-cyan-500" name="kb"
+                            checked="{{ old('kb', $medicalRecord->kb) }}" />
                         <span class="ms-2 text-sm text-gray-600">{{ __('Family Planning') }}</span>
                     </label>
                 </div>
@@ -88,12 +94,10 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.getElementById('addNewRecordForm');
-                console.log("LODED")
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    console.log("SUBMITED")
                     const formData = new FormData(form);
-                    const url = '{{ route('posyandu.store') }}';
+                    const url = '{{ route('dashboard.posyandu.update', $medicalRecord->id) }}';
 
                     axios.post(url, formData, {
                             headers: {
@@ -104,7 +108,7 @@
                             const data = response.data;
                             notyf.success("{{ __('Record saved') }}")
                             // clear form
-                            form.reset();
+                            window.location.reload();
                         })
                         .catch(error => {
                             if (error.response.data.errors) {

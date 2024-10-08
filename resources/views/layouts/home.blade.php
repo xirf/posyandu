@@ -24,8 +24,8 @@
 
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-[#fcfdfd] overflow-x-hidden w-screen ">
+<body class="font-sans antialiased overflow-x-hidden">
+    <div class="min-h-screen bg-[#fcfdfd] w-screen ">
         <div class="relative z-50">
             <x-navbar />
         </div>
